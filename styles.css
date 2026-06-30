@@ -159,8 +159,8 @@ p {
 }
 
 .day-tab[aria-selected="true"] {
-  border-color: var(--black);
-  background: var(--black);
+  border-color: var(--brown);
+  background: var(--brown);
   color: #f3dec0;
 }
 
@@ -816,7 +816,9 @@ p {
     z-index: 8;
     margin-inline: -14px;
     padding: 10px 14px 12px;
-    background: var(--black);
+    border-bottom: 1px solid var(--line);
+    background: var(--paper);
+    box-shadow: 0 8px 24px rgb(36 23 15 / 8%);
     backdrop-filter: blur(16px);
   }
 

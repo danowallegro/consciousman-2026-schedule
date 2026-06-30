@@ -87,13 +87,13 @@
   const FULL_WIDTH_ZONE_PATTERN = /^(wszyscy|scena główna|scena glowna)$/i;
   const YOUNG_BLOOD_ZONE = "młoda krew";
   const HOME_TAB_ID = "home";
-  const OFFLINE_CACHE_NAME = "consciousman-2026-shell-v14";
+  const OFFLINE_CACHE_NAME = "consciousman-2026-shell-v16";
   const OFFLINE_ASSETS = [
     "./",
     "./index.html",
-    "./styles.min.css?v=14",
-    "./app.min.js?v=14",
-    "./data.min.js?v=14",
+    "./styles.min.css?v=16",
+    "./app.min.js?v=16",
+    "./data.min.js?v=16",
     "./manifest.webmanifest",
     "./icon.svg",
     "./assets/consciousman-logo.png",
@@ -110,7 +110,7 @@
     days: [],
     details: {},
     sessions: new Map(),
-    activeView: HOME_TAB_ID,
+    activeView: "day",
     activeDay: 0,
     lastFocus: null,
     sourceData: null,
