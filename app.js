@@ -85,13 +85,14 @@
 
   const DEFAULT_TRACK_STYLE = { color: "#81745f", soft: "#ece4d5" };
   const FULL_WIDTH_ZONE_PATTERN = /^(wszyscy|scena główna|scena glowna)$/i;
-  const OFFLINE_CACHE_NAME = "consciousman-2026-shell-v11";
+  const YOUNG_BLOOD_ZONE = "młoda krew";
+  const OFFLINE_CACHE_NAME = "consciousman-2026-shell-v12";
   const OFFLINE_ASSETS = [
     "./",
     "./index.html",
-    "./styles.css?v=11",
-    "./app.js?v=11",
-    "./data.js?v=11",
+    "./styles.css?v=12",
+    "./app.js?v=12",
+    "./data.js?v=12",
     "./styles.css",
     "./app.js",
     "./data.js",
@@ -103,7 +104,8 @@
     dataBackup: "cm2026.schedule.backup",
     savedAt: "cm2026.offline.savedAt",
     favorites: "cm2026.favoriteSessions.v1",
-    persisted: "cm2026.offline.persisted"
+    persisted: "cm2026.offline.persisted",
+    hideYoungBlood: "cm2026.hideYoungBlood.v1"
   };
   const appState = {
     days: [],
@@ -116,13 +118,15 @@
     favoriteIds: new Set(),
     offlineSaveInFlight: null,
     offlineSavedAt: "",
-    storagePersisted: false
+    storagePersisted: false,
+    hideYoungBlood: false
   };
 
   const el = {
     title: document.querySelector("h1"),
     eyebrow: document.querySelector(".eyebrow"),
     dataNote: document.getElementById("data-note"),
+    homeButton: document.getElementById("go-home"),
     tabs: document.getElementById("day-tabs"),
     days: document.getElementById("schedule-days"),
     dialog: document.getElementById("session-dialog"),
@@ -133,6 +137,7 @@
     dialogDescription: document.getElementById("dialog-description"),
     mapButton: document.getElementById("open-map"),
     mapDialog: document.getElementById("map-dialog"),
+    youngBloodToggle: document.getElementById("toggle-young-blood"),
     installButton: document.getElementById("install-app"),
     saveOfflineButton: document.getElementById("save-offline"),
     offlineStatus: document.getElementById("offline-status")
@@ -143,6 +148,7 @@
   function init() {
     loadOfflineState();
     loadFavoriteSessions();
+    loadFilterState();
     const backupData = window.SCHEDULE_DATA ? null : readScheduleBackup();
     const sourceData = window.SCHEDULE_DATA || backupData || FALLBACK_DATA;
     const usingFallback = !window.SCHEDULE_DATA && !backupData;
@@ -155,7 +161,9 @@
     renderTabs(appState.days);
     renderDays(appState.days);
     bindDialog();
+    bindHomeButton();
     bindMapDialog();
+    bindYoungBloodToggle();
     bindInstall();
     rememberScheduleData(sourceData);
     registerServiceWorker();
@@ -305,13 +313,14 @@
       tab.tabIndex = index === appState.activeDay ? 0 : -1;
       tab.innerHTML = `<strong></strong><span></span>`;
       tab.querySelector("strong").textContent = day.label;
-      tab.querySelector("span").textContent = [formatDate(day.date), `${day.sessionCount || day.sessions.length} wydarzeń`]
+      tab.querySelector("span").textContent = [formatDate(day.date), `${visibleSessionCount(day)} wydarzeń`]
         .filter(Boolean)
         .join(" | ");
       tab.addEventListener("click", () => activateDay(index));
       tab.addEventListener("keydown", onTabKeydown);
       el.tabs.append(tab);
     });
+    updateYoungBloodToggle();
   }
 
   function renderDays(days) {
@@ -325,29 +334,31 @@
       panel.setAttribute("role", "tabpanel");
       panel.setAttribute("aria-labelledby", `tab-${day.id}`);
       panel.tabIndex = 0;
+      const sessions = visibleSessions(day);
 
-      if (!day.sessions.length) {
+      if (!sessions.length) {
         const empty = document.createElement("p");
         empty.className = "empty-state";
         empty.textContent = "Brak wydarzeń dla tego dnia.";
         panel.append(empty);
       } else {
-        panel.append(renderMobileAgenda(day));
-        panel.append(renderScheduleGrid(day));
+        panel.append(renderMobileAgenda(day, sessions));
+        panel.append(renderScheduleGrid(day, sessions));
       }
 
       el.days.append(panel);
     });
   }
 
-  function renderScheduleGrid(day) {
-    const sessionTracks = unique(day.sessions
+  function renderScheduleGrid(day, sessions = day.sessions) {
+    const sessionTracks = unique(sessions
       .filter((session) => !isFullWidthSession(session))
       .map((session) => session.zone || "Program"));
     const tracks = day.columns && day.columns.length
-      ? day.columns
+      ? day.columns.filter((column) => !shouldHideZone(column))
       : sessionTracks;
-    const times = unique(day.sessions.map((session) => session.start || session.time || "TBA"))
+    const safeTracks = tracks.length ? tracks : ["Program"];
+    const times = unique(sessions.map((session) => session.start || session.time || "TBA"))
       .sort((a, b) => timeValue(a) - timeValue(b) || a.localeCompare(b, "pl"));
 
     const wrap = document.createElement("div");
@@ -356,10 +367,10 @@
 
     const grid = document.createElement("div");
     grid.className = "schedule-grid";
-    grid.style.gridTemplateColumns = `var(--sticky-left) repeat(${tracks.length}, minmax(168px, 1fr))`;
+    grid.style.gridTemplateColumns = `var(--sticky-left) repeat(${safeTracks.length}, minmax(168px, 1fr))`;
     grid.setAttribute("role", "table");
     grid.setAttribute("aria-rowcount", String(times.length + 1));
-    grid.setAttribute("aria-colcount", String(tracks.length + 1));
+    grid.setAttribute("aria-colcount", String(safeTracks.length + 1));
 
     const corner = document.createElement("div");
     corner.className = "grid-cell grid-head time-cell corner-cell";
@@ -367,7 +378,7 @@
     corner.textContent = "Czas";
     grid.append(corner);
 
-    tracks.forEach((track) => {
+    safeTracks.forEach((track) => {
       const head = document.createElement("div");
       head.className = "grid-cell grid-head";
       head.setAttribute("role", "columnheader");
@@ -376,8 +387,8 @@
     });
 
     times.forEach((time) => {
-      const sessionsAtTime = day.sessions.filter((session) => (session.start || session.time || "TBA") === time);
-      const globalSessions = sessionsAtTime.filter((session) => isFullWidthSession(session) || !tracks.includes(session.zone || "Program"));
+      const sessionsAtTime = sessions.filter((session) => (session.start || session.time || "TBA") === time);
+      const globalSessions = sessionsAtTime.filter((session) => isFullWidthSession(session) || !safeTracks.includes(session.zone || "Program"));
       const trackSessions = sessionsAtTime.filter((session) => !globalSessions.includes(session));
 
       if (globalSessions.length) {
@@ -389,7 +400,7 @@
 
         const slot = document.createElement("div");
         slot.className = "grid-cell slot-cell slot-cell--global";
-        slot.style.gridColumn = `span ${tracks.length}`;
+        slot.style.gridColumn = `span ${safeTracks.length}`;
         slot.setAttribute("role", "cell");
         globalSessions.forEach((session) => slot.append(renderSessionCard(session)));
         grid.append(slot);
@@ -403,7 +414,7 @@
       timeCell.textContent = globalSessions.length ? "" : timeLabel(time, trackSessions);
       grid.append(timeCell);
 
-      tracks.forEach((track) => {
+      safeTracks.forEach((track) => {
         const slot = document.createElement("div");
         slot.className = "grid-cell slot-cell";
         slot.setAttribute("role", "cell");
@@ -426,12 +437,12 @@
     return wrap;
   }
 
-  function renderMobileAgenda(day) {
+  function renderMobileAgenda(day, sessions = day.sessions) {
     const agenda = document.createElement("div");
     agenda.className = "mobile-agenda";
     agenda.setAttribute("aria-label", `Lista wydarzeń: ${day.label}`);
 
-    const times = unique(day.sessions.map((session) => session.start || session.time || "TBA"))
+    const times = unique(sessions.map((session) => session.start || session.time || "TBA"))
       .sort((a, b) => timeValue(a) - timeValue(b) || a.localeCompare(b, "pl"));
 
     times.forEach((time) => {
@@ -442,10 +453,10 @@
       const label = document.createElement("h4");
       label.className = "agenda-time";
       label.id = `${day.id}-${slug(time)}-label`;
-      label.textContent = timeLabel(time, day.sessions);
+      label.textContent = timeLabel(time, sessions);
       group.append(label);
 
-      day.sessions
+      sessions
         .filter((session) => (session.start || session.time || "TBA") === time)
         .forEach((session) => group.append(renderSessionCard(session, "mobile")));
 
@@ -584,6 +595,42 @@
     }
   }
 
+  function loadFilterState() {
+    try {
+      appState.hideYoungBlood = localStorage.getItem(OFFLINE_STORAGE_KEYS.hideYoungBlood) === "true";
+    } catch (error) {
+      appState.hideYoungBlood = false;
+    }
+  }
+
+  function saveFilterState() {
+    try {
+      localStorage.setItem(OFFLINE_STORAGE_KEYS.hideYoungBlood, String(appState.hideYoungBlood));
+    } catch (error) {
+      // The filter still works for the current page load if localStorage is unavailable.
+    }
+  }
+
+  function visibleSessions(day) {
+    return (day.sessions || []).filter((session) => !shouldHideSession(session));
+  }
+
+  function visibleSessionCount(day) {
+    return visibleSessions(day).length;
+  }
+
+  function shouldHideSession(session) {
+    return appState.hideYoungBlood && isYoungBloodZone(session.zone);
+  }
+
+  function shouldHideZone(zone) {
+    return appState.hideYoungBlood && isYoungBloodZone(zone);
+  }
+
+  function isYoungBloodZone(zone) {
+    return text(zone).toLowerCase() === YOUNG_BLOOD_ZONE;
+  }
+
   function activateDay(index) {
     appState.activeDay = index;
     document.querySelectorAll(".day-tab").forEach((tab, tabIndex) => {
@@ -594,6 +641,35 @@
     document.querySelectorAll(".day-panel").forEach((panel, panelIndex) => {
       panel.classList.toggle("is-active", panelIndex === index);
     });
+  }
+
+  function bindHomeButton() {
+    if (!el.homeButton) return;
+    el.homeButton.addEventListener("click", () => {
+      activateDay(0);
+      document.getElementById(`tab-${appState.days[0]?.id}`)?.focus();
+      el.tabs?.scrollTo({ left: 0, behavior: "smooth" });
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+
+  function bindYoungBloodToggle() {
+    if (!el.youngBloodToggle) return;
+    el.youngBloodToggle.addEventListener("click", () => {
+      appState.hideYoungBlood = !appState.hideYoungBlood;
+      saveFilterState();
+      renderTabs(appState.days);
+      renderDays(appState.days);
+    });
+    updateYoungBloodToggle();
+  }
+
+  function updateYoungBloodToggle() {
+    if (!el.youngBloodToggle) return;
+    el.youngBloodToggle.setAttribute("aria-pressed", String(appState.hideYoungBlood));
+    el.youngBloodToggle.setAttribute("aria-label", appState.hideYoungBlood ? "Pokaż Młoda Krew" : "Ukryj Młoda Krew");
+    el.youngBloodToggle.title = appState.hideYoungBlood ? "Pokaż Młoda Krew" : "Ukryj Młoda Krew";
+    el.youngBloodToggle.innerHTML = "<span class=\"zone-toggle-dot\" aria-hidden=\"true\"></span><span>Młoda Krew</span>";
   }
 
   function onTabKeydown(event) {

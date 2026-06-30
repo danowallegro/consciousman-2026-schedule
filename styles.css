@@ -94,18 +94,29 @@ p {
   padding: clamp(12px, 2.4vw, 26px) clamp(14px, 3vw, 34px) clamp(18px, 3vw, 34px);
 }
 
+.schedule-toolbar {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: stretch;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
 .day-tabs {
   display: flex;
   gap: 8px;
+  min-width: 0;
   overflow-x: auto;
-  padding: 2px 2px 16px;
+  padding: 2px;
   scroll-padding-inline: 14px;
   scroll-snap-type: x proximity;
   scrollbar-width: thin;
   -webkit-overflow-scrolling: touch;
 }
 
-.day-tab {
+.day-tab,
+.home-button,
+.zone-toggle {
   min-width: max(154px, 18vw);
   min-height: 54px;
   flex: 0 0 auto;
@@ -117,6 +128,48 @@ p {
   scroll-snap-align: start;
   text-align: left;
   touch-action: manipulation;
+}
+
+.home-button {
+  display: grid;
+  width: 54px;
+  min-width: 54px;
+  place-items: center;
+  color: var(--ink);
+  font-size: 1.35rem;
+  line-height: 1;
+  padding: 0;
+}
+
+.zone-toggle {
+  display: inline-flex;
+  min-width: 150px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--ink);
+  font-size: 0.82rem;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.zone-toggle-dot {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--teal);
+}
+
+.zone-toggle[aria-pressed="true"] {
+  border-color: rgb(255 250 240 / 18%);
+  background: #2b2925;
+  color: #c9c1b6;
+}
+
+.zone-toggle[aria-pressed="true"] .zone-toggle-dot {
+  border: 2px solid #c9c1b6;
+  background: transparent;
 }
 
 .day-tab strong,
@@ -663,18 +716,33 @@ p {
 }
 
 @media (max-width: 860px) {
-  .day-tabs {
+  .schedule-toolbar {
     position: sticky;
     top: 0;
     z-index: 8;
     margin-inline: -14px;
     padding: 10px 14px 12px;
-    background: rgb(17 16 14 / 94%);
+    background: var(--black);
     backdrop-filter: blur(16px);
+  }
+
+  .day-tabs {
+    padding: 0;
   }
 
   .day-tab {
     min-width: min(72vw, 220px);
+  }
+
+  .home-button {
+    border-color: rgb(255 250 240 / 24%);
+    background: rgb(255 250 240 / 92%);
+  }
+
+  .zone-toggle {
+    min-width: 132px;
+    border-color: rgb(255 250 240 / 24%);
+    background: rgb(255 250 240 / 92%);
   }
 }
 
@@ -802,13 +870,15 @@ p {
 @media (prefers-reduced-motion: no-preference) {
   .session-card,
   .favorite-toggle,
-  .day-tab {
+  .day-tab,
+  .home-button,
+  .zone-toggle {
     transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease, border-color 160ms ease;
   }
 }
 
 @media print {
-  .day-tabs,
+  .schedule-toolbar,
   .map-fab {
     display: none;
   }

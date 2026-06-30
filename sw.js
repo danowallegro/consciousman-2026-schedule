@@ -1,10 +1,10 @@
-const CACHE_NAME = "consciousman-2026-shell-v11";
+const CACHE_NAME = "consciousman-2026-shell-v12";
 const CORE_ASSETS = [
   "./",
   "./index.html",
-  "./styles.css?v=11",
-  "./app.js?v=11",
-  "./data.js?v=11",
+  "./styles.css?v=12",
+  "./app.js?v=12",
+  "./data.js?v=12",
   "./styles.css",
   "./app.js",
   "./data.js",
