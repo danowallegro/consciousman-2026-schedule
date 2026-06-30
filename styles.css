@@ -95,10 +95,6 @@ p {
 }
 
 .schedule-toolbar {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  align-items: stretch;
-  gap: 8px;
   margin-bottom: 16px;
 }
 
@@ -114,9 +110,7 @@ p {
   -webkit-overflow-scrolling: touch;
 }
 
-.day-tab,
-.home-button,
-.zone-toggle {
+.day-tab {
   min-width: max(154px, 18vw);
   min-height: 54px;
   flex: 0 0 auto;
@@ -130,46 +124,19 @@ p {
   touch-action: manipulation;
 }
 
-.home-button {
+.home-tab {
   display: grid;
   width: 54px;
   min-width: 54px;
   place-items: center;
-  color: var(--ink);
   font-size: 1.35rem;
   line-height: 1;
   padding: 0;
 }
 
-.zone-toggle {
-  display: inline-flex;
-  min-width: 150px;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  color: var(--ink);
-  font-size: 0.82rem;
-  font-weight: 900;
-  white-space: nowrap;
-}
-
-.zone-toggle-dot {
+.home-tab-icon {
   display: block;
-  width: 10px;
-  height: 10px;
-  border-radius: 999px;
-  background: var(--teal);
-}
-
-.zone-toggle[aria-pressed="true"] {
-  border-color: rgb(255 250 240 / 18%);
-  background: #2b2925;
-  color: #c9c1b6;
-}
-
-.zone-toggle[aria-pressed="true"] .zone-toggle-dot {
-  border: 2px solid #c9c1b6;
-  background: transparent;
+  color: inherit;
 }
 
 .day-tab strong,
@@ -184,6 +151,10 @@ p {
 
 .day-tab span {
   font-size: 0.76rem;
+}
+
+.home-tab .home-tab-icon {
+  font-size: 1.35rem;
 }
 
 .day-tab[aria-selected="true"] {
@@ -206,6 +177,129 @@ p {
 
 .day-panel.is-active {
   display: block;
+}
+
+.home-panel-content {
+  display: grid;
+  max-width: 680px;
+  gap: 28px;
+  padding: clamp(18px, 4vw, 38px) 0 84px;
+}
+
+.event-logo {
+  display: inline-flex;
+  width: fit-content;
+  max-width: 100%;
+  align-items: center;
+  gap: 16px;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.event-logo img {
+  width: clamp(70px, 16vw, 102px);
+  height: clamp(70px, 16vw, 102px);
+  border-radius: 22%;
+  box-shadow: 0 18px 42px rgb(23 23 23 / 16%);
+}
+
+.event-wordmark {
+  display: grid;
+  gap: 2px;
+}
+
+.event-logo-kicker {
+  color: var(--teal);
+  font-size: 0.78rem;
+  font-weight: 950;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.event-logo-title {
+  color: var(--black);
+  font-size: clamp(2.35rem, 9vw, 4.25rem);
+  font-weight: 950;
+  line-height: 0.94;
+}
+
+.home-controls {
+  display: grid;
+  gap: 12px;
+}
+
+.filter-switch {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+  max-width: 420px;
+  min-height: 72px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgb(255 250 240 / 84%);
+  padding: 14px 16px;
+  box-shadow: 0 14px 38px rgb(23 23 23 / 9%);
+}
+
+.filter-switch input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.filter-switch input:focus-visible + .switch-track {
+  outline: 3px solid #0e8d82;
+  outline-offset: 3px;
+}
+
+.switch-track {
+  position: relative;
+  width: 58px;
+  height: 34px;
+  border-radius: 999px;
+  background: var(--teal);
+  box-shadow: inset 0 0 0 1px rgb(23 23 23 / 9%);
+}
+
+.switch-track::after {
+  position: absolute;
+  top: 4px;
+  left: 28px;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  background: white;
+  box-shadow: 0 5px 14px rgb(23 23 23 / 22%);
+  content: "";
+  transition: transform 160ms ease;
+}
+
+.filter-switch input:not(:checked) + .switch-track {
+  background: #a6a199;
+}
+
+.filter-switch input:not(:checked) + .switch-track::after {
+  transform: translateX(-24px);
+}
+
+.switch-copy {
+  display: grid;
+  min-width: 0;
+  gap: 2px;
+}
+
+.switch-copy strong {
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 950;
+}
+
+.switch-copy span {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 850;
 }
 
 .mobile-agenda {
@@ -734,15 +828,8 @@ p {
     min-width: min(72vw, 220px);
   }
 
-  .home-button {
-    border-color: rgb(255 250 240 / 24%);
-    background: rgb(255 250 240 / 92%);
-  }
-
-  .zone-toggle {
-    min-width: 132px;
-    border-color: rgb(255 250 240 / 24%);
-    background: rgb(255 250 240 / 92%);
+  .home-tab {
+    min-width: 54px;
   }
 }
 
@@ -870,9 +957,7 @@ p {
 @media (prefers-reduced-motion: no-preference) {
   .session-card,
   .favorite-toggle,
-  .day-tab,
-  .home-button,
-  .zone-toggle {
+  .day-tab {
     transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease, border-color 160ms ease;
   }
 }

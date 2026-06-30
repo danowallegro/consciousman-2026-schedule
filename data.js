@@ -1884,13 +1884,13 @@ window.SCHEDULE_DATA = {
     }
   },
   "offline": {
-    "cacheName": "consciousman-2026-shell-v12",
+    "cacheName": "consciousman-2026-shell-v13",
     "files": [
       "./",
       "./index.html",
-      "./styles.css?v=12",
-      "./app.js?v=12",
-      "./data.js?v=12",
+      "./styles.css?v=13",
+      "./app.js?v=13",
+      "./data.js?v=13",
       "./styles.css",
       "./app.js",
       "./data.js",

@@ -86,13 +86,14 @@
   const DEFAULT_TRACK_STYLE = { color: "#81745f", soft: "#ece4d5" };
   const FULL_WIDTH_ZONE_PATTERN = /^(wszyscy|scena główna|scena glowna)$/i;
   const YOUNG_BLOOD_ZONE = "młoda krew";
-  const OFFLINE_CACHE_NAME = "consciousman-2026-shell-v12";
+  const HOME_TAB_ID = "home";
+  const OFFLINE_CACHE_NAME = "consciousman-2026-shell-v13";
   const OFFLINE_ASSETS = [
     "./",
     "./index.html",
-    "./styles.css?v=12",
-    "./app.js?v=12",
-    "./data.js?v=12",
+    "./styles.css?v=13",
+    "./app.js?v=13",
+    "./data.js?v=13",
     "./styles.css",
     "./app.js",
     "./data.js",
@@ -105,12 +106,13 @@
     savedAt: "cm2026.offline.savedAt",
     favorites: "cm2026.favoriteSessions.v1",
     persisted: "cm2026.offline.persisted",
-    hideYoungBlood: "cm2026.hideYoungBlood.v1"
+    hideYoungBlood: "cm2026.hideYoungBlood.v2"
   };
   const appState = {
     days: [],
     details: {},
     sessions: new Map(),
+    activeView: HOME_TAB_ID,
     activeDay: 0,
     lastFocus: null,
     deferredInstallPrompt: null,
@@ -126,7 +128,6 @@
     title: document.querySelector("h1"),
     eyebrow: document.querySelector(".eyebrow"),
     dataNote: document.getElementById("data-note"),
-    homeButton: document.getElementById("go-home"),
     tabs: document.getElementById("day-tabs"),
     days: document.getElementById("schedule-days"),
     dialog: document.getElementById("session-dialog"),
@@ -137,7 +138,6 @@
     dialogDescription: document.getElementById("dialog-description"),
     mapButton: document.getElementById("open-map"),
     mapDialog: document.getElementById("map-dialog"),
-    youngBloodToggle: document.getElementById("toggle-young-blood"),
     installButton: document.getElementById("install-app"),
     saveOfflineButton: document.getElementById("save-offline"),
     offlineStatus: document.getElementById("offline-status")
@@ -161,9 +161,7 @@
     renderTabs(appState.days);
     renderDays(appState.days);
     bindDialog();
-    bindHomeButton();
     bindMapDialog();
-    bindYoungBloodToggle();
     bindInstall();
     rememberScheduleData(sourceData);
     registerServiceWorker();
@@ -302,6 +300,7 @@
 
   function renderTabs(days) {
     el.tabs.textContent = "";
+    el.tabs.append(renderHomeTab());
     days.forEach((day, index) => {
       const tab = document.createElement("button");
       tab.className = "day-tab";
@@ -309,8 +308,8 @@
       tab.id = `tab-${day.id}`;
       tab.setAttribute("role", "tab");
       tab.setAttribute("aria-controls", `panel-${day.id}`);
-      tab.setAttribute("aria-selected", String(index === appState.activeDay));
-      tab.tabIndex = index === appState.activeDay ? 0 : -1;
+      tab.setAttribute("aria-selected", String(appState.activeView === "day" && index === appState.activeDay));
+      tab.tabIndex = appState.activeView === "day" && index === appState.activeDay ? 0 : -1;
       tab.innerHTML = `<strong></strong><span></span>`;
       tab.querySelector("strong").textContent = day.label;
       tab.querySelector("span").textContent = [formatDate(day.date), `${visibleSessionCount(day)} wydarzeń`]
@@ -320,16 +319,33 @@
       tab.addEventListener("keydown", onTabKeydown);
       el.tabs.append(tab);
     });
-    updateYoungBloodToggle();
+  }
+
+  function renderHomeTab() {
+    const tab = document.createElement("button");
+    tab.className = "day-tab home-tab";
+    tab.type = "button";
+    tab.id = "tab-home";
+    tab.setAttribute("role", "tab");
+    tab.setAttribute("aria-controls", "panel-home");
+    tab.setAttribute("aria-selected", String(appState.activeView === HOME_TAB_ID));
+    tab.setAttribute("aria-label", "Home");
+    tab.title = "Home";
+    tab.tabIndex = appState.activeView === HOME_TAB_ID ? 0 : -1;
+    tab.innerHTML = "<span class=\"home-tab-icon\" aria-hidden=\"true\">⌂</span>";
+    tab.addEventListener("click", activateHome);
+    tab.addEventListener("keydown", onTabKeydown);
+    return tab;
   }
 
   function renderDays(days) {
     el.days.textContent = "";
     appState.sessions.clear();
+    el.days.append(renderHomePanel());
 
     days.forEach((day, index) => {
       const panel = document.createElement("section");
-      panel.className = `day-panel${index === appState.activeDay ? " is-active" : ""}`;
+      panel.className = `day-panel${appState.activeView === "day" && index === appState.activeDay ? " is-active" : ""}`;
       panel.id = `panel-${day.id}`;
       panel.setAttribute("role", "tabpanel");
       panel.setAttribute("aria-labelledby", `tab-${day.id}`);
@@ -348,6 +364,59 @@
 
       el.days.append(panel);
     });
+  }
+
+  function renderHomePanel() {
+    const panel = document.createElement("section");
+    panel.className = `day-panel home-panel${appState.activeView === HOME_TAB_ID ? " is-active" : ""}`;
+    panel.id = "panel-home";
+    panel.setAttribute("role", "tabpanel");
+    panel.setAttribute("aria-labelledby", "tab-home");
+    panel.tabIndex = 0;
+
+    const content = document.createElement("div");
+    content.className = "home-panel-content";
+
+    const logoLink = document.createElement("a");
+    logoLink.className = "event-logo";
+    logoLink.href = "https://consciousman.pl/";
+    logoLink.target = "_blank";
+    logoLink.rel = "noopener";
+    logoLink.setAttribute("aria-label", "Conscious Man");
+    logoLink.innerHTML = `
+      <img src="./icon.svg" alt="" loading="eager" decoding="async">
+      <span class="event-wordmark">
+        <span class="event-logo-kicker">Conscious Man</span>
+        <span class="event-logo-title">2026</span>
+      </span>
+    `;
+
+    const controls = document.createElement("div");
+    controls.className = "home-controls";
+
+    const toggle = document.createElement("label");
+    toggle.className = "filter-switch";
+    const checked = !appState.hideYoungBlood;
+    toggle.innerHTML = `
+      <input type="checkbox" ${checked ? "checked" : ""}>
+      <span class="switch-track" aria-hidden="true"></span>
+      <span class="switch-copy">
+        <strong>Młoda Krew</strong>
+        <span>${checked ? "Widoczne" : "Ukryte"}</span>
+      </span>
+    `;
+    const input = toggle.querySelector("input");
+    input.addEventListener("change", () => {
+      appState.hideYoungBlood = !input.checked;
+      saveFilterState();
+      renderTabs(appState.days);
+      renderDays(appState.days);
+    });
+
+    controls.append(toggle);
+    content.append(logoLink, controls);
+    panel.append(content);
+    return panel;
   }
 
   function renderScheduleGrid(day, sessions = day.sessions) {
@@ -632,57 +701,47 @@
   }
 
   function activateDay(index) {
+    appState.activeView = "day";
     appState.activeDay = index;
     document.querySelectorAll(".day-tab").forEach((tab, tabIndex) => {
-      const selected = tabIndex === index;
+      const selected = tabIndex === index + 1;
       tab.setAttribute("aria-selected", String(selected));
       tab.tabIndex = selected ? 0 : -1;
     });
     document.querySelectorAll(".day-panel").forEach((panel, panelIndex) => {
-      panel.classList.toggle("is-active", panelIndex === index);
+      panel.classList.toggle("is-active", panelIndex === index + 1);
     });
   }
 
-  function bindHomeButton() {
-    if (!el.homeButton) return;
-    el.homeButton.addEventListener("click", () => {
-      activateDay(0);
-      document.getElementById(`tab-${appState.days[0]?.id}`)?.focus();
-      el.tabs?.scrollTo({ left: 0, behavior: "smooth" });
-      window.scrollTo({ top: 0, behavior: "smooth" });
+  function activateHome() {
+    appState.activeView = HOME_TAB_ID;
+    document.querySelectorAll(".day-tab").forEach((tab, tabIndex) => {
+      const selected = tabIndex === 0;
+      tab.setAttribute("aria-selected", String(selected));
+      tab.tabIndex = selected ? 0 : -1;
     });
-  }
-
-  function bindYoungBloodToggle() {
-    if (!el.youngBloodToggle) return;
-    el.youngBloodToggle.addEventListener("click", () => {
-      appState.hideYoungBlood = !appState.hideYoungBlood;
-      saveFilterState();
-      renderTabs(appState.days);
-      renderDays(appState.days);
+    document.querySelectorAll(".day-panel").forEach((panel, panelIndex) => {
+      panel.classList.toggle("is-active", panelIndex === 0);
     });
-    updateYoungBloodToggle();
-  }
-
-  function updateYoungBloodToggle() {
-    if (!el.youngBloodToggle) return;
-    el.youngBloodToggle.setAttribute("aria-pressed", String(appState.hideYoungBlood));
-    el.youngBloodToggle.setAttribute("aria-label", appState.hideYoungBlood ? "Pokaż Młoda Krew" : "Ukryj Młoda Krew");
-    el.youngBloodToggle.title = appState.hideYoungBlood ? "Pokaż Młoda Krew" : "Ukryj Młoda Krew";
-    el.youngBloodToggle.innerHTML = "<span class=\"zone-toggle-dot\" aria-hidden=\"true\"></span><span>Młoda Krew</span>";
   }
 
   function onTabKeydown(event) {
-    const lastIndex = appState.days.length - 1;
-    let nextIndex = appState.activeDay;
-    if (event.key === "ArrowRight") nextIndex = appState.activeDay === lastIndex ? 0 : appState.activeDay + 1;
-    if (event.key === "ArrowLeft") nextIndex = appState.activeDay === 0 ? lastIndex : appState.activeDay - 1;
+    const lastIndex = appState.days.length;
+    const currentIndex = appState.activeView === HOME_TAB_ID ? 0 : appState.activeDay + 1;
+    let nextIndex = currentIndex;
+    if (event.key === "ArrowRight") nextIndex = currentIndex === lastIndex ? 0 : currentIndex + 1;
+    if (event.key === "ArrowLeft") nextIndex = currentIndex === 0 ? lastIndex : currentIndex - 1;
     if (event.key === "Home") nextIndex = 0;
     if (event.key === "End") nextIndex = lastIndex;
-    if (nextIndex !== appState.activeDay) {
+    if (nextIndex !== currentIndex) {
       event.preventDefault();
-      activateDay(nextIndex);
-      document.getElementById(`tab-${appState.days[nextIndex].id}`)?.focus();
+      if (nextIndex === 0) {
+        activateHome();
+        document.getElementById("tab-home")?.focus();
+        return;
+      }
+      activateDay(nextIndex - 1);
+      document.getElementById(`tab-${appState.days[nextIndex - 1].id}`)?.focus();
     }
   }
 
