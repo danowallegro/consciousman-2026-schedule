@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Conscious Man 2026">
+  <rect width="512" height="512" rx="104" fill="#151515"/>
+  <circle cx="256" cy="256" r="184" fill="#fffaf0"/>
+  <circle cx="256" cy="256" r="152" fill="#151515"/>
+  <path fill="#f2d28c" d="M159 285c0-75 42-124 105-124 37 0 68 16 88 43l-47 37c-10-15-24-23-42-23-28 0-48 26-48 66 0 39 21 65 51 65 19 0 35-9 46-27l47 35c-21 31-53 49-94 49-63 0-106-48-106-121Z"/>
+  <path fill="#58b8ad" d="M118 411h276v-48H118v48Z"/>
+  <path fill="#c85f49" d="M360 101h34v230h-34z"/>
+</svg>

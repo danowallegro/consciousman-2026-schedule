@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#151515">
+    <meta name="description" content="Offline schedule for Conscious Man 2026.">
+    <title>Conscious Man 2026 | Harmonogram</title>
+    <link rel="icon" href="./icon.svg" type="image/svg+xml">
+    <link rel="manifest" href="./manifest.webmanifest">
+    <link rel="stylesheet" href="./styles.css">
+    <script src="./data.js" defer></script>
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#schedule-root">Przejdź do harmonogramu</a>
+
+    <header class="site-header">
+      <div class="brand-lockup" aria-label="Conscious Man 2026">
+        <span class="brand-mark" aria-hidden="true">CM</span>
+        <div>
+          <p class="eyebrow">1-5 lipca 2026 | Przyłęk</p>
+          <h1>Conscious Man 2026</h1>
+        </div>
+      </div>
+
+      <div class="header-actions" aria-label="Opcje aplikacji">
+        <span class="status-pill" id="offline-status" role="status">Sprawdzanie offline...</span>
+        <button class="ghost-button" id="save-offline" type="button">
+          <span aria-hidden="true">↻</span>
+          Odśwież offline
+        </button>
+        <button class="primary-button" id="install-app" type="button">
+          <span aria-hidden="true">＋</span>
+          Instaluj
+        </button>
+      </div>
+    </header>
+
+    <main class="app-shell" id="schedule-root">
+      <section class="intro-panel" aria-labelledby="page-title">
+        <div>
+          <p class="section-kicker">Harmonogram</p>
+          <h2 id="page-title">Wybierz dzień i sprawdź wydarzenia</h2>
+        </div>
+        <p class="intro-copy" id="data-note">
+          Dane: <strong>data.js</strong>. Offline zapisuje się automatycznie.
+        </p>
+      </section>
+
+      <nav class="day-tabs" id="day-tabs" role="tablist" aria-label="Dni festiwalu"></nav>
+
+      <div class="schedule-legend" aria-label="Legenda harmonogramu">
+        <span><i class="legend-dot knowledge"></i>Wiedza</span>
+        <span><i class="legend-dot skills"></i>Umiejętności</span>
+        <span><i class="legend-dot transform"></i>Transformacja</span>
+        <span><i class="legend-dot inspire"></i>Inspiracja</span>
+      </div>
+
+      <div class="schedule-days" id="schedule-days"></div>
+    </main>
+
+    <dialog class="session-dialog" id="session-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description">
+      <form method="dialog" class="dialog-frame">
+        <button class="icon-button dialog-close" value="close" aria-label="Zamknij szczegóły wydarzenia">
+          <span aria-hidden="true">×</span>
+        </button>
+        <div class="dialog-meta" id="dialog-meta"></div>
+        <h2 id="dialog-title"></h2>
+        <p class="dialog-subtitle" id="dialog-subtitle"></p>
+        <dl class="dialog-facts" id="dialog-facts"></dl>
+        <div class="dialog-description" id="dialog-description"></div>
+      </form>
+    </dialog>
+  </body>
+</html>
