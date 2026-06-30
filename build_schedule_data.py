@@ -231,14 +231,19 @@ def main() -> None:
         "days": days,
         "details": details,
         "offline": {
-            "cacheName": "consciousman-2026-shell-v9",
+            "cacheName": "consciousman-2026-shell-v11",
             "files": [
                 "./",
                 "./index.html",
+                "./styles.css?v=11",
+                "./app.js?v=11",
+                "./data.js?v=11",
                 "./styles.css",
                 "./app.js",
                 "./data.js",
                 "./manifest.webmanifest",
+                "./icon.svg",
+                "./assets/festival-map-2026.webp",
             ],
         },
     }

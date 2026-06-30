@@ -1,12 +1,16 @@
-const CACHE_NAME = "consciousman-2026-shell-v9";
+const CACHE_NAME = "consciousman-2026-shell-v11";
 const CORE_ASSETS = [
   "./",
   "./index.html",
+  "./styles.css?v=11",
+  "./app.js?v=11",
+  "./data.js?v=11",
   "./styles.css",
   "./app.js",
   "./data.js",
   "./manifest.webmanifest",
-  "./icon.svg"
+  "./icon.svg",
+  "./assets/festival-map-2026.webp"
 ];
 
 self.addEventListener("install", (event) => {

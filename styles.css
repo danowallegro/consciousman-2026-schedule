@@ -426,6 +426,37 @@ p {
   color: var(--muted);
 }
 
+.map-fab {
+  position: fixed;
+  right: clamp(14px, 4vw, 30px);
+  bottom: calc(16px + env(safe-area-inset-bottom));
+  z-index: 12;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 50px;
+  border: 1px solid rgb(255 250 240 / 18%);
+  border-radius: 999px;
+  background: var(--black);
+  color: #fff7e6;
+  padding: 12px 17px;
+  font-weight: 950;
+  box-shadow: 0 18px 44px rgb(23 23 23 / 26%);
+  touch-action: manipulation;
+}
+
+.map-fab span[aria-hidden="true"] {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--teal);
+  color: white;
+  font-size: 1rem;
+  line-height: 1;
+}
+
 .session-dialog {
   width: min(680px, calc(100vw - 28px));
   max-height: min(760px, calc(100vh - 28px));
@@ -441,6 +472,21 @@ p {
   backdrop-filter: blur(5px);
 }
 
+.map-dialog {
+  width: min(1120px, calc(100vw - 28px));
+  max-height: min(840px, calc(100vh - 28px));
+  border: 0;
+  border-radius: 8px;
+  padding: 0;
+  background: transparent;
+  color: var(--ink);
+}
+
+.map-dialog::backdrop {
+  background: rgb(14 13 12 / 68%);
+  backdrop-filter: blur(5px);
+}
+
 .dialog-frame {
   position: relative;
   margin: 0;
@@ -453,10 +499,29 @@ p {
   box-shadow: var(--shadow);
 }
 
+.map-frame {
+  position: relative;
+  margin: 0;
+  max-height: inherit;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  padding: 16px;
+  box-shadow: var(--shadow);
+}
+
 .dialog-close {
   position: absolute;
   top: 14px;
   right: 14px;
+}
+
+.map-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
 }
 
 .icon-button {
@@ -469,6 +534,28 @@ p {
   color: white;
   font-size: 1.4rem;
   line-height: 1;
+}
+
+.map-frame h2 {
+  margin: 0 52px 12px 0;
+  font-size: 1.05rem;
+  font-weight: 950;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.map-scroll {
+  max-height: calc(min(840px, 100vh - 28px) - 82px);
+  overflow: auto;
+  border-radius: 7px;
+  background: #0c1309;
+  -webkit-overflow-scrolling: touch;
+}
+
+.map-scroll img {
+  display: block;
+  width: max(100%, 960px);
+  height: auto;
 }
 
 .dialog-meta {
@@ -600,6 +687,13 @@ p {
     padding: 14px;
   }
 
+  .map-fab {
+    right: 14px;
+    bottom: calc(14px + env(safe-area-inset-bottom));
+    min-height: 48px;
+    padding: 11px 14px;
+  }
+
   .mobile-agenda {
     display: block;
   }
@@ -628,10 +722,24 @@ p {
     margin: 0;
   }
 
+  .map-dialog {
+    width: 100vw;
+    max-width: none;
+    height: 100dvh;
+    max-height: none;
+    margin: 0;
+  }
+
   .dialog-frame {
     min-height: 100dvh;
     border-radius: 0;
     padding: 58px 16px 22px;
+  }
+
+  .map-frame {
+    min-height: 100dvh;
+    border-radius: 0;
+    padding: 58px 12px 12px;
   }
 
   .dialog-close {
@@ -641,9 +749,30 @@ p {
     z-index: 2;
   }
 
+  .map-close {
+    position: fixed;
+    top: 12px;
+    right: 12px;
+  }
+
   .icon-button {
     width: 44px;
     height: 44px;
+  }
+
+  .map-frame h2 {
+    margin-bottom: 10px;
+    font-size: 0.96rem;
+  }
+
+  .map-scroll {
+    height: calc(100dvh - 112px);
+    max-height: none;
+  }
+
+  .map-scroll img {
+    width: 980px;
+    max-width: none;
   }
 
   .dialog-meta {
@@ -679,7 +808,8 @@ p {
 }
 
 @media print {
-  .day-tabs {
+  .day-tabs,
+  .map-fab {
     display: none;
   }
 

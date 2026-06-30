@@ -85,15 +85,19 @@
 
   const DEFAULT_TRACK_STYLE = { color: "#81745f", soft: "#ece4d5" };
   const FULL_WIDTH_ZONE_PATTERN = /^(wszyscy|scena główna|scena glowna)$/i;
-  const OFFLINE_CACHE_NAME = "consciousman-2026-shell-v9";
+  const OFFLINE_CACHE_NAME = "consciousman-2026-shell-v11";
   const OFFLINE_ASSETS = [
     "./",
     "./index.html",
+    "./styles.css?v=11",
+    "./app.js?v=11",
+    "./data.js?v=11",
     "./styles.css",
     "./app.js",
     "./data.js",
     "./manifest.webmanifest",
-    "./icon.svg"
+    "./icon.svg",
+    "./assets/festival-map-2026.webp"
   ];
   const OFFLINE_STORAGE_KEYS = {
     dataBackup: "cm2026.schedule.backup",
@@ -127,6 +131,8 @@
     dialogMeta: document.getElementById("dialog-meta"),
     dialogFacts: document.getElementById("dialog-facts"),
     dialogDescription: document.getElementById("dialog-description"),
+    mapButton: document.getElementById("open-map"),
+    mapDialog: document.getElementById("map-dialog"),
     installButton: document.getElementById("install-app"),
     saveOfflineButton: document.getElementById("save-offline"),
     offlineStatus: document.getElementById("offline-status")
@@ -149,6 +155,7 @@
     renderTabs(appState.days);
     renderDays(appState.days);
     bindDialog();
+    bindMapDialog();
     bindInstall();
     rememberScheduleData(sourceData);
     registerServiceWorker();
@@ -615,6 +622,33 @@
         event.clientY < rect.top ||
         event.clientY > rect.bottom;
       if (clickedBackdrop) el.dialog.close();
+    });
+  }
+
+  function bindMapDialog() {
+    if (!el.mapButton || !el.mapDialog) return;
+
+    el.mapButton.addEventListener("click", () => {
+      appState.lastFocus = el.mapButton;
+      if (typeof el.mapDialog.showModal === "function") {
+        el.mapDialog.showModal();
+      } else {
+        el.mapDialog.setAttribute("open", "");
+      }
+    });
+
+    el.mapDialog.addEventListener("close", () => {
+      if (appState.lastFocus === el.mapButton) el.mapButton.focus();
+    });
+
+    el.mapDialog.addEventListener("click", (event) => {
+      const rect = el.mapDialog.getBoundingClientRect();
+      const clickedBackdrop =
+        event.clientX < rect.left ||
+        event.clientX > rect.right ||
+        event.clientY < rect.top ||
+        event.clientY > rect.bottom;
+      if (clickedBackdrop) el.mapDialog.close();
     });
   }
 
