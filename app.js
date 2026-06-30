@@ -87,13 +87,13 @@
   const FULL_WIDTH_ZONE_PATTERN = /^(wszyscy|scena główna|scena glowna)$/i;
   const YOUNG_BLOOD_ZONE = "młoda krew";
   const HOME_TAB_ID = "home";
-  const OFFLINE_CACHE_NAME = "consciousman-2026-shell-v16";
+  const OFFLINE_CACHE_NAME = "consciousman-2026-shell-v17";
   const OFFLINE_ASSETS = [
     "./",
     "./index.html",
-    "./styles.min.css?v=16",
-    "./app.min.js?v=16",
-    "./data.min.js?v=16",
+    "./styles.min.css?v=17",
+    "./app.min.js?v=17",
+    "./data.min.js?v=17",
     "./manifest.webmanifest",
     "./icon.svg",
     "./assets/consciousman-logo.png",

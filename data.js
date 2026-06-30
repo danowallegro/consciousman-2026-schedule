@@ -1884,13 +1884,13 @@ window.SCHEDULE_DATA = {
     }
   },
   "offline": {
-    "cacheName": "consciousman-2026-shell-v16",
+    "cacheName": "consciousman-2026-shell-v17",
     "files": [
       "./",
       "./index.html",
-      "./styles.min.css?v=16",
-      "./app.min.js?v=16",
-      "./data.min.js?v=16",
+      "./styles.min.css?v=17",
+      "./app.min.js?v=17",
+      "./data.min.js?v=17",
       "./manifest.webmanifest",
       "./icon.svg",
       "./assets/consciousman-logo.png",
