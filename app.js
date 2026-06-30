@@ -87,13 +87,13 @@
   const FULL_WIDTH_ZONE_PATTERN = /^(wszyscy|scena główna|scena glowna)$/i;
   const YOUNG_BLOOD_ZONE = "młoda krew";
   const HOME_TAB_ID = "home";
-  const OFFLINE_CACHE_NAME = "consciousman-2026-shell-v21";
+  const OFFLINE_CACHE_NAME = "consciousman-2026-shell-v23";
   const OFFLINE_ASSETS = [
     "./",
     "./index.html",
-    "./styles.min.css?v=21",
-    "./app.min.js?v=21",
-    "./data.min.js?v=21",
+    "./styles.min.css?v=23",
+    "./app.min.js?v=23",
+    "./data.min.js?v=23",
     "./manifest.webmanifest",
     "./icon.svg",
     "./assets/consciousman-logo.png",
@@ -960,6 +960,7 @@
       } else {
         el.mapDialog.setAttribute("open", "");
       }
+      centerMapView();
     });
 
     el.mapDialog.addEventListener("close", () => {
@@ -975,6 +976,32 @@
         event.clientY > rect.bottom;
       if (clickedBackdrop) el.mapDialog.close();
     });
+  }
+
+  function centerMapView() {
+    const scroll = el.mapDialog.querySelector(".map-scroll");
+    const image = scroll?.querySelector("img");
+    if (!scroll || !image) return;
+
+    const center = () => {
+      scroll.scrollLeft = Math.max(0, (scroll.scrollWidth - scroll.clientWidth) / 2);
+      scroll.scrollTop = Math.max(0, (scroll.scrollHeight - scroll.clientHeight) / 2);
+    };
+
+    const scheduleCenter = () => {
+      requestAnimationFrame(() => {
+        center();
+        requestAnimationFrame(center);
+        window.setTimeout(center, 120);
+      });
+    };
+
+    if (image.complete) {
+      scheduleCenter();
+      return;
+    }
+
+    image.addEventListener("load", scheduleCenter, { once: true });
   }
 
   function openSession(sessionId, trigger) {

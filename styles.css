@@ -1049,7 +1049,7 @@ p {
 
   .agenda-time {
     position: sticky;
-    top: 76px;
+    top: 100px;
     z-index: 6;
     width: fit-content;
     border: 1px solid var(--line);
