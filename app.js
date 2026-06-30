@@ -83,17 +83,9 @@
     ]
   };
 
-  const TRACK_STYLES = [
-    { match: /wied|knowledge|prelek|wyk/i, color: "#b8892f", soft: "#f2e4bd" },
-    { match: /umiej|skill|ruch|cia|oddech|body|work/i, color: "#1f766e", soft: "#dcefeb" },
-    { match: /trans|cerem|rytua|sza|process|temazcal/i, color: "#c85f49", soft: "#f3ddd6" },
-    { match: /insp|koncert|music|scena|art/i, color: "#5d597d", soft: "#e5e2ef" },
-    { match: /młod|mlod|young|krew/i, color: "#547a49", soft: "#e1eadb" }
-  ];
-
-  const DEFAULT_TRACK_STYLE = { color: "#1f766e", soft: "#dcefeb" };
+  const DEFAULT_TRACK_STYLE = { color: "#81745f", soft: "#ece4d5" };
   const FULL_WIDTH_ZONE_PATTERN = /^(wszyscy|scena główna|scena glowna)$/i;
-  const OFFLINE_CACHE_NAME = "consciousman-2026-shell-v8";
+  const OFFLINE_CACHE_NAME = "consciousman-2026-shell-v9";
   const OFFLINE_ASSETS = [
     "./",
     "./index.html",
@@ -101,10 +93,7 @@
     "./app.js",
     "./data.js",
     "./manifest.webmanifest",
-    "./icon.svg",
-    "./assets/schedule-wed-thu.jpeg",
-    "./assets/schedule-fri.jpeg",
-    "./assets/schedule-sat-sun.jpeg"
+    "./icon.svg"
   ];
   const OFFLINE_STORAGE_KEYS = {
     dataBackup: "cm2026.schedule.backup",
@@ -330,8 +319,6 @@
       panel.setAttribute("aria-labelledby", `tab-${day.id}`);
       panel.tabIndex = 0;
 
-      panel.append(renderPoster(day));
-
       if (!day.sessions.length) {
         const empty = document.createElement("p");
         empty.className = "empty-state";
@@ -344,30 +331,6 @@
 
       el.days.append(panel);
     });
-  }
-
-  function renderPoster(day) {
-    const details = document.createElement("details");
-    details.className = "poster-details";
-
-    const summary = document.createElement("summary");
-    summary.textContent = "Oryginalny plakat";
-    details.append(summary);
-
-    if (day.poster) {
-      const image = document.createElement("img");
-      image.src = day.poster;
-      image.alt = `Oryginalny plakat harmonogramu: ${day.label}`;
-      image.loading = "lazy";
-      image.decoding = "async";
-      details.append(image);
-    } else {
-      const empty = document.createElement("p");
-      empty.textContent = "Brak plakatu dla tego dnia.";
-      details.append(empty);
-    }
-
-    return details;
   }
 
   function renderScheduleGrid(day) {
@@ -488,15 +451,14 @@
   function renderSessionCard(session, variant = "grid") {
     const card = document.createElement("article");
     const openButton = document.createElement("button");
-    const trackStyle = trackStyleFor(session.zone, session.type, session.title);
     const favorite = isFavoriteSession(session);
     const canFavorite = canFavoriteSession(session);
     appState.sessions.set(session.id, session);
 
     card.className = sessionClassNames(session, variant, favorite, canFavorite).join(" ");
     card.dataset.sessionId = session.id;
-    card.style.setProperty("--track-color", trackStyle.color);
-    card.style.setProperty("--track-soft", trackStyle.soft);
+    card.style.setProperty("--track-color", DEFAULT_TRACK_STYLE.color);
+    card.style.setProperty("--track-soft", DEFAULT_TRACK_STYLE.soft);
 
     openButton.className = "session-open";
     openButton.type = "button";
@@ -526,7 +488,7 @@
     if (variant === "mobile") {
       const details = document.createElement("span");
       details.className = "session-mobile-details";
-      details.textContent = [session.location, session.zone].filter(Boolean).join(" | ");
+      details.textContent = session.zone;
       openButton.append(details);
     }
 
@@ -675,7 +637,6 @@
     [
       ["Prowadzący", session.speaker],
       ["Strefa", session.zone],
-      ["Miejsce", session.location],
       ["Czas", session.time]
     ].filter(([, value]) => value).forEach(([label, value]) => {
       const item = document.createElement("div");
@@ -945,11 +906,6 @@
     if (!el.offlineStatus) return;
     el.offlineStatus.className = `status-pill ${state}`.trim();
     el.offlineStatus.textContent = label;
-  }
-
-  function trackStyleFor(...parts) {
-    const haystack = parts.filter(Boolean).join(" ");
-    return TRACK_STYLES.find((style) => style.match.test(haystack)) || DEFAULT_TRACK_STYLE;
   }
 
   function isFullWidthSession(session) {

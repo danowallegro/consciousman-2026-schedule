@@ -40,7 +40,7 @@ def event(
     }
 
 
-def day(key: str, label: str, date: str, columns: list[str], poster: str, items: list[dict]) -> dict:
+def day(key: str, label: str, date: str, columns: list[str], items: list[dict]) -> dict:
     for item in items:
         item["id"] = f"{key}-{item['start'].replace(':', '')}-{slugify(item['zone'])}-{slugify(item['speaker'] + '-' + item['title'])}"
     return {
@@ -48,7 +48,6 @@ def day(key: str, label: str, date: str, columns: list[str], poster: str, items:
         "label": label,
         "date": date,
         "columns": columns,
-        "poster": poster,
         "items": items,
     }
 
@@ -81,7 +80,6 @@ days = [
         "Środa",
         "1 lipca 2026",
         ZONES_5,
-        "assets/schedule-wed-thu.jpeg",
         [
             event("18:30", "20:30", ALL, "", "Ceremonia otwarcia", kind="ceremony"),
             event("20:30", "22:00", MAIN, "Yaacov Darling Khan", "Wezwanie do Obecności: Ceremonia Otwarcia", ["darling-khan"]),
@@ -93,7 +91,6 @@ days = [
         "Czwartek",
         "2 lipca 2026",
         ZONES_5,
-        "assets/schedule-wed-thu.jpeg",
         [
             event("07:00", "09:00", "Strefa Wiedzy", "Marcel Bird Wieteska", "FreedOm Joga - Wolność Ciała i Umysłu", note="Brak szczegółowego opisu w pobranym programie."),
             event("07:00", "09:00", "Strefa Transformacji", "Mana Akitanga", "Haka Mau Rakau", ["hava-2026"]),
@@ -131,7 +128,6 @@ days = [
         "Piątek",
         "3 lipca 2026",
         ZONES_6,
-        "assets/schedule-fri.jpeg",
         [
             event("04:00", "09:00", ALL, "Piotr Matłok, Wojciech Wieconkowski, Roman Praszyński, Sławomir Gęściak, Dario Eglie, Zowie Jannik", "Ceremonia Szałasu Potu", SWEAT_LODGE_ANCHORS, "ceremony", "Dario Eglie nie ma osobnego opisu w pobranym programie."),
             event("07:00", "09:00", "Strefa Wiedzy", "Jan Szpil", "Joga Regeneracyjna", ["szpil"]),
@@ -169,7 +165,6 @@ days = [
         "Sobota",
         "4 lipca 2026",
         ZONES_6,
-        "assets/schedule-sat-sun.jpeg",
         [
             event("04:00", "09:00", ALL, "Piotr Matłok, Wojciech Wieconkowski, Roman Praszyński, Sławomir Gęściak, Dario Eglie, Zowie Jannik", "Ceremonia Szałasu Potu", SWEAT_LODGE_ANCHORS, "ceremony", "Dario Eglie nie ma osobnego opisu w pobranym programie."),
             event("07:00", "09:00", "Strefa Wiedzy", "Raj NaamJot Singh", "Ruch do Ciszy - Joga Nidra i Klasyczne Surya Namaskar", ["naamjot"]),
@@ -211,7 +206,6 @@ days = [
         "Niedziela",
         "5 lipca 2026",
         ZONES_6,
-        "assets/schedule-sat-sun.jpeg",
         [
             event("08:00", "10:00", "Strefa Wiedzy", "Tomasz Sol", "Do domu w równowadze - powrót do siebie po festiwalu", note="Brak szczegółowego opisu w pobranym programie."),
             event("08:00", "10:00", "Strefa Transformacji", "Marcin Karbowski", "Powrót do siebie - integracja i domknięcie", ["karbowski"]),
@@ -237,7 +231,7 @@ def main() -> None:
         "days": days,
         "details": details,
         "offline": {
-            "cacheName": "consciousman-2026-shell-v8",
+            "cacheName": "consciousman-2026-shell-v9",
             "files": [
                 "./",
                 "./index.html",
@@ -245,9 +239,6 @@ def main() -> None:
                 "./app.js",
                 "./data.js",
                 "./manifest.webmanifest",
-                "./assets/schedule-wed-thu.jpeg",
-                "./assets/schedule-fri.jpeg",
-                "./assets/schedule-sat-sun.jpeg",
             ],
         },
     }

@@ -18,7 +18,6 @@ window.SCHEDULE_DATA = {
         "Strefa Inspiracji",
         "Młoda Krew"
       ],
-      "poster": "assets/schedule-wed-thu.jpeg",
       "items": [
         {
           "start": "18:30",
@@ -70,7 +69,6 @@ window.SCHEDULE_DATA = {
         "Strefa Inspiracji",
         "Młoda Krew"
       ],
-      "poster": "assets/schedule-wed-thu.jpeg",
       "items": [
         {
           "start": "07:00",
@@ -445,7 +443,6 @@ window.SCHEDULE_DATA = {
         "Młoda Krew",
         "Strefa Pracy z Drewnem"
       ],
-      "poster": "assets/schedule-fri.jpeg",
       "items": [
         {
           "start": "04:00",
@@ -828,7 +825,6 @@ window.SCHEDULE_DATA = {
         "Młoda Krew",
         "Strefa Pracy z Drewnem"
       ],
-      "poster": "assets/schedule-sat-sun.jpeg",
       "items": [
         {
           "start": "04:00",
@@ -1267,7 +1263,6 @@ window.SCHEDULE_DATA = {
         "Młoda Krew",
         "Strefa Pracy z Drewnem"
       ],
-      "poster": "assets/schedule-sat-sun.jpeg",
       "items": [
         {
           "start": "08:00",
@@ -1889,17 +1884,14 @@ window.SCHEDULE_DATA = {
     }
   },
   "offline": {
-    "cacheName": "consciousman-2026-shell-v8",
+    "cacheName": "consciousman-2026-shell-v9",
     "files": [
       "./",
       "./index.html",
       "./styles.css",
       "./app.js",
       "./data.js",
-      "./manifest.webmanifest",
-      "./assets/schedule-wed-thu.jpeg",
-      "./assets/schedule-fri.jpeg",
-      "./assets/schedule-sat-sun.jpeg"
+      "./manifest.webmanifest"
     ]
   }
 };

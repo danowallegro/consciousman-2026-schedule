@@ -155,32 +155,6 @@ p {
   display: block;
 }
 
-.poster-details {
-  margin: 0 0 18px;
-  border: 1px solid rgb(242 210 140 / 28%);
-  border-radius: var(--radius);
-  background: #151412;
-  color: #fff7e6;
-  overflow: hidden;
-}
-
-.poster-details summary {
-  min-height: 48px;
-  padding: 12px 16px;
-  color: #f3dec0;
-  font-weight: 900;
-  touch-action: manipulation;
-}
-
-.poster-details img {
-  display: block;
-  width: min(100%, 860px);
-  max-height: 78vh;
-  margin: 0 auto;
-  object-fit: contain;
-  background: #070706;
-}
-
 .mobile-agenda {
   display: none;
 }
@@ -274,7 +248,6 @@ p {
 
 .slot-cell--global .session-card {
   min-height: 70px;
-  background: #ece4d5;
 }
 
 .session-card {
@@ -353,18 +326,6 @@ p {
   color: #11100c;
 }
 
-.session-card--common {
-  border-left-color: #a99a82;
-  background: #ece4d5;
-  color: #37332b;
-}
-
-.session-card--common .session-time,
-.session-card--common .session-speaker,
-.session-card--common .session-mobile-details {
-  color: rgb(55 51 43 / 68%);
-}
-
 .session-card--meal {
   border-left-color: #aba79f;
   background: #e5e2dc;
@@ -390,18 +351,6 @@ p {
 .session-card--meal .session-type {
   background: #d6d2ca;
   color: #666058;
-}
-
-.session-card--common.is-favorite {
-  border-left-color: #d09612;
-  background: #fff0aa;
-  color: var(--ink);
-}
-
-.session-card--common.is-favorite .session-time,
-.session-card--common.is-favorite .session-speaker,
-.session-card--common.is-favorite .session-mobile-details {
-  color: rgb(23 23 23 / 72%);
 }
 
 .session-time {
