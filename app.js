@@ -87,13 +87,13 @@
   const FULL_WIDTH_ZONE_PATTERN = /^(wszyscy|scena główna|scena glowna)$/i;
   const YOUNG_BLOOD_ZONE = "młoda krew";
   const HOME_TAB_ID = "home";
-  const OFFLINE_CACHE_NAME = "consciousman-2026-shell-v19";
+  const OFFLINE_CACHE_NAME = "consciousman-2026-shell-v21";
   const OFFLINE_ASSETS = [
     "./",
     "./index.html",
-    "./styles.min.css?v=19",
-    "./app.min.js?v=19",
-    "./data.min.js?v=19",
+    "./styles.min.css?v=21",
+    "./app.min.js?v=21",
+    "./data.min.js?v=21",
     "./manifest.webmanifest",
     "./icon.svg",
     "./assets/consciousman-logo.png",
@@ -405,8 +405,24 @@
     `;
     restore.addEventListener("click", restoreHiddenSessions);
 
+    const tips = document.createElement("div");
+    tips.className = "home-tips";
+    tips.setAttribute("aria-label", "Instrukcje harmonogramu");
+    tips.innerHTML = `
+      <div>
+        <span aria-hidden="true">★</span>
+        <strong>Ulubione</strong>
+        <p>Dotknij gwiazdki przy sesji.</p>
+      </div>
+      <div>
+        <span aria-hidden="true">←</span>
+        <strong>Ukrywanie</strong>
+        <p>Przesuń sesję w lewo.</p>
+      </div>
+    `;
+
     controls.append(toggle, restore);
-    content.append(logoLink, controls);
+    content.append(logoLink, tips, controls);
     panel.append(content);
     return panel;
   }
@@ -463,7 +479,7 @@
         slot.className = "grid-cell slot-cell slot-cell--global";
         slot.style.gridColumn = `span ${safeTracks.length}`;
         slot.setAttribute("role", "cell");
-        globalSessions.forEach((session) => slot.append(renderSessionCard(session)));
+        globalSessions.forEach((session) => slot.append(renderSessionItem(session)));
         grid.append(slot);
       }
 
@@ -482,7 +498,7 @@
         const matching = trackSessions.filter((session) => (session.zone || "Program") === track);
 
         if (matching.length) {
-          matching.forEach((session) => slot.append(renderSessionCard(session)));
+          matching.forEach((session) => slot.append(renderSessionItem(session)));
         } else {
           const empty = document.createElement("div");
           empty.className = "empty-cell";
@@ -519,12 +535,44 @@
 
       sessions
         .filter((session) => (session.start || session.time || "TBA") === time)
-        .forEach((session) => group.append(renderSessionCard(session, "mobile")));
+        .forEach((session) => group.append(renderSessionItem(session, "mobile")));
 
       agenda.append(group);
     });
 
     return agenda;
+  }
+
+  function renderSessionItem(session, variant = "grid") {
+    if (isHiddenSession(session)) {
+      return renderHiddenSessionPlaceholder(session, variant);
+    }
+    return renderSessionCard(session, variant);
+  }
+
+  function renderHiddenSessionPlaceholder(session, variant = "grid") {
+    const placeholder = document.createElement("article");
+    placeholder.className = [
+      "session-placeholder",
+      `session-placeholder--${variant}`,
+      isFullWidthSession(session) ? "session-placeholder--common" : ""
+    ].filter(Boolean).join(" ");
+    placeholder.dataset.sessionId = session.id;
+
+    const restore = document.createElement("button");
+    restore.className = "session-restore-placeholder";
+    restore.type = "button";
+    restore.setAttribute("aria-label", `Przywróć ukrytą sesję: ${session.title}`);
+    restore.innerHTML = `
+      <span class="hidden-placeholder-copy">
+        <strong>Sesja ukryta</strong>
+      </span>
+      <span class="hidden-placeholder-action">Przywróć</span>
+    `;
+    restore.addEventListener("click", () => restoreHiddenSession(session.id));
+
+    placeholder.append(restore);
+    return placeholder;
   }
 
   function renderSessionCard(session, variant = "grid") {
@@ -543,10 +591,6 @@
     openButton.type = "button";
     openButton.setAttribute("aria-label", `${session.title}, ${session.time}`);
 
-    const time = document.createElement("span");
-    time.className = "session-time";
-    time.textContent = session.time;
-
     const title = document.createElement("span");
     title.className = "session-title";
     title.textContent = session.title;
@@ -555,7 +599,7 @@
     speaker.className = "session-speaker";
     speaker.textContent = session.speaker || session.location || session.zone;
 
-    openButton.append(time, title, speaker);
+    openButton.append(title, speaker);
 
     if (session.type) {
       const type = document.createElement("span");
@@ -695,6 +739,10 @@
     return appState.favoriteIds.has(session.id);
   }
 
+  function isHiddenSession(session) {
+    return appState.hiddenSessionIds.has(session.id);
+  }
+
   function toggleFavoriteSession(sessionId) {
     if (appState.favoriteIds.has(sessionId)) {
       appState.favoriteIds.delete(sessionId);
@@ -774,6 +822,13 @@
     renderDays(appState.days);
   }
 
+  function restoreHiddenSession(sessionId) {
+    if (!appState.hiddenSessionIds.delete(sessionId)) return;
+    saveHiddenSessions();
+    renderTabs(appState.days);
+    renderDays(appState.days);
+  }
+
   function hiddenSessionCount() {
     const validIds = allSessionIds();
     let count = 0;
@@ -824,7 +879,7 @@
   }
 
   function shouldHideSession(session) {
-    return appState.hiddenSessionIds.has(session.id) || (appState.hideYoungBlood && isYoungBloodZone(session.zone));
+    return appState.hideYoungBlood && isYoungBloodZone(session.zone);
   }
 
   function shouldHideZone(zone) {
