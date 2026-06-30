@@ -1889,7 +1889,7 @@ window.SCHEDULE_DATA = {
     }
   },
   "offline": {
-    "cacheName": "consciousman-2026-shell-v7",
+    "cacheName": "consciousman-2026-shell-v8",
     "files": [
       "./",
       "./index.html",

@@ -93,7 +93,7 @@
 
   const DEFAULT_TRACK_STYLE = { color: "#1f766e", soft: "#dcefeb" };
   const FULL_WIDTH_ZONE_PATTERN = /^(wszyscy|scena główna|scena glowna)$/i;
-  const OFFLINE_CACHE_NAME = "consciousman-2026-shell-v7";
+  const OFFLINE_CACHE_NAME = "consciousman-2026-shell-v8";
   const OFFLINE_ASSETS = [
     "./",
     "./index.html",
@@ -285,6 +285,7 @@
   }
 
   function renderHeader(meta, usingFallback) {
+    if (!el.title || !el.eyebrow || !el.dataNote) return;
     el.title.textContent = meta.title || FALLBACK_DATA.event.title;
     el.eyebrow.textContent = meta.subtitle || FALLBACK_DATA.event.subtitle;
     el.dataNote.innerHTML = "";
@@ -329,12 +330,6 @@
       panel.setAttribute("aria-labelledby", `tab-${day.id}`);
       panel.tabIndex = 0;
 
-      const heading = document.createElement("div");
-      heading.className = "day-heading";
-      heading.innerHTML = `<h3></h3><p class="day-summary"></p>`;
-      heading.querySelector("h3").textContent = [day.label, formatDate(day.date)].filter(Boolean).join(" | ");
-      heading.querySelector(".day-summary").textContent = day.summary || `${day.sessions.length} wydarzeń`;
-      panel.append(heading);
       panel.append(renderPoster(day));
 
       if (!day.sessions.length) {
@@ -759,6 +754,8 @@
   }
 
   function bindInstall() {
+    if (!el.installButton || !el.saveOfflineButton) return;
+
     if (window.matchMedia("(display-mode: standalone)").matches || navigator.standalone) {
       el.installButton.hidden = true;
     }
@@ -926,6 +923,7 @@
   }
 
   function updateSaveOfflineButton(isSaving) {
+    if (!el.saveOfflineButton) return;
     el.saveOfflineButton.disabled = Boolean(isSaving);
     el.saveOfflineButton.innerHTML = isSaving
       ? "<span aria-hidden=\"true\">↓</span>Zapisywanie..."
@@ -944,6 +942,7 @@
   }
 
   function setOfflineStatus(state, label) {
+    if (!el.offlineStatus) return;
     el.offlineStatus.className = `status-pill ${state}`.trim();
     el.offlineStatus.textContent = label;
   }

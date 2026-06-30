@@ -15,47 +15,8 @@
   <body>
     <a class="skip-link" href="#schedule-root">Przejdź do harmonogramu</a>
 
-    <header class="site-header">
-      <div class="brand-lockup" aria-label="Conscious Man 2026">
-        <span class="brand-mark" aria-hidden="true">CM</span>
-        <div>
-          <p class="eyebrow">1-5 lipca 2026 | Przyłęk</p>
-          <h1>Conscious Man 2026</h1>
-        </div>
-      </div>
-
-      <div class="header-actions" aria-label="Opcje aplikacji">
-        <span class="status-pill" id="offline-status" role="status">Sprawdzanie offline...</span>
-        <button class="ghost-button" id="save-offline" type="button">
-          <span aria-hidden="true">↻</span>
-          Odśwież offline
-        </button>
-        <button class="primary-button" id="install-app" type="button">
-          <span aria-hidden="true">＋</span>
-          Instaluj
-        </button>
-      </div>
-    </header>
-
     <main class="app-shell" id="schedule-root">
-      <section class="intro-panel" aria-labelledby="page-title">
-        <div>
-          <p class="section-kicker">Harmonogram</p>
-          <h2 id="page-title">Wybierz dzień i sprawdź wydarzenia</h2>
-        </div>
-        <p class="intro-copy" id="data-note">
-          Dane: <strong>data.js</strong>. Offline zapisuje się automatycznie.
-        </p>
-      </section>
-
       <nav class="day-tabs" id="day-tabs" role="tablist" aria-label="Dni festiwalu"></nav>
-
-      <div class="schedule-legend" aria-label="Legenda harmonogramu">
-        <span><i class="legend-dot knowledge"></i>Wiedza</span>
-        <span><i class="legend-dot skills"></i>Umiejętności</span>
-        <span><i class="legend-dot transform"></i>Transformacja</span>
-        <span><i class="legend-dot inspire"></i>Inspiracja</span>
-      </div>
 
       <div class="schedule-days" id="schedule-days"></div>
     </main>

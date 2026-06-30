@@ -33,9 +33,7 @@ body {
   min-width: 320px;
   margin: 0;
   color: var(--ink);
-  background:
-    linear-gradient(180deg, rgb(17 16 14 / 96%) 0 520px, rgb(244 240 232) 520px 100%),
-    repeating-linear-gradient(90deg, rgb(255 255 255 / 3%) 0 1px, transparent 1px 84px);
+  background: var(--soft);
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   line-height: 1.5;
 }
@@ -79,172 +77,28 @@ dialog:focus-visible {
   transform: translateY(0);
 }
 
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 16px clamp(16px, 4vw, 44px);
-  border-bottom: 1px solid rgb(242 210 140 / 22%);
-  background: rgb(17 16 14 / 92%);
-  backdrop-filter: blur(18px);
-}
-
-.brand-lockup,
-.header-actions,
-.schedule-legend,
 .dialog-meta {
   display: flex;
   align-items: center;
 }
 
-.brand-lockup {
-  min-width: 0;
-  gap: 14px;
-}
-
-.brand-lockup > div {
-  min-width: 0;
-}
-
-.brand-mark {
-  display: grid;
-  width: 54px;
-  height: 54px;
-  flex: 0 0 auto;
-  place-items: center;
-  border: 2px solid var(--black);
-  border-radius: 50%;
-  background: var(--black);
-  color: #f6e6be;
-  font-size: 0.92rem;
-  font-weight: 900;
-  letter-spacing: 0.04em;
-}
-
-.eyebrow,
-.section-kicker {
-  margin: 0 0 4px;
-  color: var(--teal);
-  font-size: 0.76rem;
-  font-weight: 800;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-}
-
-h1,
 h2,
 h3,
 p {
   margin-top: 0;
 }
 
-h1 {
-  margin-bottom: 0;
-  color: #fff7e6;
-  font-size: clamp(1.2rem, 2vw, 1.65rem);
-  line-height: 1.08;
-  overflow-wrap: anywhere;
-}
-
-.header-actions {
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 10px;
-}
-
-.status-pill,
-.ghost-button,
-.primary-button {
-  min-height: 40px;
-  border-radius: 999px;
-  font-size: 0.9rem;
-  font-weight: 800;
-}
-
-.status-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
-  border: 1px solid rgb(242 210 140 / 28%);
-  background: rgb(255 255 255 / 8%);
-  color: #f3dec0;
-}
-
-.status-pill::before {
-  width: 9px;
-  height: 9px;
-  border-radius: 999px;
-  background: var(--gold);
-  content: "";
-}
-
-.status-pill.ready::before {
-  background: var(--green);
-}
-
-.status-pill.offline::before {
-  background: var(--coral);
-}
-
-.ghost-button,
-.primary-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 9px 14px;
-}
-
-.ghost-button {
-  border: 1px solid rgb(242 210 140 / 35%);
-  background: rgb(255 255 255 / 10%);
-  color: #fff7e6;
-}
-
-.primary-button {
-  background: var(--teal);
-  color: white;
-}
-
 .app-shell {
   width: min(1460px, 100%);
   margin: 0 auto;
-  padding: clamp(18px, 3vw, 34px);
-}
-
-.intro-panel {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(260px, 520px);
-  gap: 24px;
-  align-items: end;
-  padding: clamp(20px, 4vw, 44px) 0 clamp(18px, 3vw, 30px);
-}
-
-.intro-panel h2 {
-  max-width: 760px;
-  margin-bottom: 0;
-  color: #fff7e6;
-  font-size: clamp(2rem, 5.8vw, 5.4rem);
-  line-height: 0.96;
-  text-transform: uppercase;
-}
-
-.intro-copy {
-  margin-bottom: 8px;
-  color: #f3dec0;
-  font-size: clamp(0.95rem, 1.5vw, 1.08rem);
+  padding: clamp(12px, 2.4vw, 26px) clamp(14px, 3vw, 34px) clamp(18px, 3vw, 34px);
 }
 
 .day-tabs {
   display: flex;
   gap: 8px;
   overflow-x: auto;
-  padding: 6px 2px 14px;
+  padding: 2px 2px 16px;
   scroll-padding-inline: 14px;
   scroll-snap-type: x proximity;
   scrollbar-width: thin;
@@ -289,40 +143,6 @@ h1 {
   color: white;
 }
 
-.schedule-legend {
-  flex-wrap: wrap;
-  gap: 10px 16px;
-  padding: 8px 0 22px;
-  color: var(--muted);
-  font-size: 0.86rem;
-  font-weight: 750;
-}
-
-.legend-dot {
-  display: inline-block;
-  width: 12px;
-  height: 12px;
-  margin-right: 7px;
-  border-radius: 50%;
-  vertical-align: -1px;
-}
-
-.knowledge {
-  background: var(--gold);
-}
-
-.skills {
-  background: var(--teal);
-}
-
-.transform {
-  background: var(--coral);
-}
-
-.inspire {
-  background: var(--violet);
-}
-
 .schedule-days {
   position: relative;
 }
@@ -335,16 +155,8 @@ h1 {
   display: block;
 }
 
-.day-heading {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 14px;
-}
-
 .poster-details {
-  margin: 0 0 16px;
+  margin: 0 0 18px;
   border: 1px solid rgb(242 210 140 / 28%);
   border-radius: var(--radius);
   background: #151412;
@@ -367,17 +179,6 @@ h1 {
   margin: 0 auto;
   object-fit: contain;
   background: #070706;
-}
-
-.day-heading h3 {
-  margin-bottom: 0;
-  font-size: clamp(1.4rem, 2.3vw, 2.4rem);
-}
-
-.day-summary {
-  margin-bottom: 0;
-  color: var(--muted);
-  font-weight: 700;
 }
 
 .mobile-agenda {
@@ -826,38 +627,6 @@ h1 {
 }
 
 @media (max-width: 860px) {
-  .site-header,
-  .intro-panel,
-  .day-heading {
-    align-items: stretch;
-    flex-direction: column;
-  }
-
-  .site-header {
-    position: relative;
-    gap: 14px;
-    padding: 14px;
-  }
-
-  .intro-panel {
-    display: block;
-    padding-top: 20px;
-  }
-
-  .intro-copy {
-    margin-top: 16px;
-  }
-
-  .header-actions {
-    justify-content: flex-start;
-    gap: 8px;
-  }
-
-  .status-pill {
-    width: 100%;
-    justify-content: center;
-  }
-
   .day-tabs {
     position: sticky;
     top: 0;
@@ -882,53 +651,12 @@ h1 {
     padding: 14px;
   }
 
-  .intro-panel h2 {
-    font-size: clamp(2rem, 12vw, 3.35rem);
-    line-height: 0.98;
-  }
-
-  .intro-copy {
-    font-size: 0.94rem;
-  }
-
-  .brand-mark {
-    width: 46px;
-    height: 46px;
-  }
-
-  .ghost-button,
-  .primary-button {
-    flex: 1 1 150px;
-    min-height: 48px;
-    padding-inline: 12px;
-    flex-basis: 100%;
-    width: 100%;
-  }
-
-  .schedule-legend {
-    gap: 8px;
-    padding-bottom: 14px;
-    font-size: 0.78rem;
-  }
-
   .mobile-agenda {
     display: block;
   }
 
   .grid-wrap {
     display: none;
-  }
-
-  .day-heading {
-    margin-bottom: 12px;
-  }
-
-  .day-heading h3 {
-    font-size: 1.32rem;
-  }
-
-  .day-summary {
-    font-size: 0.9rem;
   }
 
   .agenda-time {
@@ -993,51 +721,16 @@ h1 {
   }
 }
 
-@media (max-width: 420px) {
-  .site-header {
-    padding-inline: 12px;
-  }
-
-  .brand-lockup {
-    gap: 10px;
-  }
-
-  .brand-mark {
-    width: 42px;
-    height: 42px;
-    font-size: 0.78rem;
-  }
-
-  .eyebrow {
-    font-size: 0.68rem;
-  }
-
-  h1 {
-    font-size: 1.08rem;
-  }
-
-  .status-pill,
-  .ghost-button,
-  .primary-button {
-    font-size: 0.84rem;
-  }
-
-}
-
 @media (prefers-reduced-motion: no-preference) {
   .session-card,
   .favorite-toggle,
-  .day-tab,
-  .ghost-button,
-  .primary-button {
+  .day-tab {
     transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease, border-color 160ms ease;
   }
 }
 
 @media print {
-  .site-header,
-  .day-tabs,
-  .schedule-legend {
+  .day-tabs {
     display: none;
   }
 

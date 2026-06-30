@@ -1,4 +1,4 @@
-const CACHE_NAME = "consciousman-2026-shell-v7";
+const CACHE_NAME = "consciousman-2026-shell-v8";
 const CORE_ASSETS = [
   "./",
   "./index.html",
