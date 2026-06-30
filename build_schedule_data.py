@@ -231,13 +231,13 @@ def main() -> None:
         "days": days,
         "details": details,
         "offline": {
-            "cacheName": "consciousman-2026-shell-v17",
+            "cacheName": "consciousman-2026-shell-v19",
             "files": [
                 "./",
                 "./index.html",
-                "./styles.min.css?v=17",
-                "./app.min.js?v=17",
-                "./data.min.js?v=17",
+                "./styles.min.css?v=19",
+                "./app.min.js?v=19",
+                "./data.min.js?v=19",
                 "./manifest.webmanifest",
                 "./icon.svg",
                 "./assets/consciousman-logo.png",

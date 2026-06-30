@@ -284,6 +284,63 @@ p {
   transform: translateX(-24px);
 }
 
+.restore-hidden {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+  max-width: 420px;
+  min-height: 72px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--brown);
+  color: #fff7e6;
+  padding: 14px 16px;
+  text-align: left;
+  box-shadow: 0 14px 38px rgb(23 23 23 / 12%);
+  touch-action: manipulation;
+}
+
+.restore-hidden:disabled {
+  background: #ded8ce;
+  color: #706a61;
+  cursor: default;
+  box-shadow: inset 0 0 0 1px rgb(23 23 23 / 5%);
+}
+
+.restore-icon {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 14%);
+  font-size: 1.34rem;
+  font-weight: 950;
+  line-height: 1;
+}
+
+.restore-hidden:disabled .restore-icon {
+  background: rgb(255 255 255 / 38%);
+}
+
+.restore-copy {
+  display: grid;
+  min-width: 0;
+  gap: 2px;
+}
+
+.restore-copy strong {
+  font-size: 1rem;
+  font-weight: 950;
+}
+
+.restore-copy span {
+  font-size: 0.82rem;
+  font-weight: 850;
+  opacity: 0.78;
+}
+
 .switch-copy {
   display: grid;
   min-width: 0;
@@ -406,10 +463,31 @@ p {
   border-radius: 7px;
   background: var(--track-soft, var(--teal-soft));
   color: var(--ink);
+  overflow: hidden;
   padding: 10px;
   text-align: left;
-  touch-action: manipulation;
+  touch-action: pan-y;
+  user-select: none;
   box-shadow: inset 0 0 0 1px rgb(23 23 23 / 8%);
+}
+
+.session-card::before {
+  position: absolute;
+  inset: 0 0 0 auto;
+  z-index: 0;
+  display: grid;
+  width: 104px;
+  place-items: center;
+  background: #7b382d;
+  color: #fff7e6;
+  font-size: 0.86rem;
+  font-weight: 950;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  opacity: 0;
+  content: "Ukryj";
+  pointer-events: none;
+  transform: translateX(22px);
 }
 
 .session-card:hover {
@@ -417,7 +495,19 @@ p {
   box-shadow: 0 12px 26px rgb(23 23 23 / 10%), inset 0 0 0 1px rgb(23 23 23 / 8%);
 }
 
+.session-card.is-swiping::before {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.session-card.is-hiding {
+  opacity: 0;
+  transform: translateX(-120%);
+}
+
 .session-open {
+  position: relative;
+  z-index: 1;
   display: grid;
   width: 100%;
   min-height: 100%;
@@ -428,7 +518,8 @@ p {
   color: inherit;
   padding: 0;
   text-align: left;
-  touch-action: manipulation;
+  touch-action: pan-y;
+  transform: translateX(var(--swipe-x, 0));
 }
 
 .session-card.has-favorite-toggle .session-open {
@@ -439,7 +530,7 @@ p {
   position: absolute;
   top: 7px;
   right: 7px;
-  z-index: 1;
+  z-index: 2;
   display: grid;
   width: 34px;
   height: 34px;
@@ -452,6 +543,7 @@ p {
   line-height: 1;
   box-shadow: 0 8px 18px rgb(23 23 23 / 10%);
   touch-action: manipulation;
+  transform: translateX(var(--swipe-x, 0));
 }
 
 .favorite-toggle[aria-pressed="true"] {
@@ -959,8 +1051,16 @@ p {
 @media (prefers-reduced-motion: no-preference) {
   .session-card,
   .favorite-toggle,
+  .session-open,
+  .session-card::before,
+  .restore-hidden,
   .day-tab {
-    transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease, border-color 160ms ease;
+    transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease, border-color 160ms ease, opacity 160ms ease;
+  }
+
+  .session-card.is-swiping .session-open,
+  .session-card.is-swiping .favorite-toggle {
+    transition: none;
   }
 }
 

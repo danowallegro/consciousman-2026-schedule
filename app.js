@@ -87,13 +87,13 @@
   const FULL_WIDTH_ZONE_PATTERN = /^(wszyscy|scena główna|scena glowna)$/i;
   const YOUNG_BLOOD_ZONE = "młoda krew";
   const HOME_TAB_ID = "home";
-  const OFFLINE_CACHE_NAME = "consciousman-2026-shell-v17";
+  const OFFLINE_CACHE_NAME = "consciousman-2026-shell-v19";
   const OFFLINE_ASSETS = [
     "./",
     "./index.html",
-    "./styles.min.css?v=17",
-    "./app.min.js?v=17",
-    "./data.min.js?v=17",
+    "./styles.min.css?v=19",
+    "./app.min.js?v=19",
+    "./data.min.js?v=19",
     "./manifest.webmanifest",
     "./icon.svg",
     "./assets/consciousman-logo.png",
@@ -104,8 +104,12 @@
     savedAt: "cm2026.offline.savedAt",
     favorites: "cm2026.favoriteSessions.v1",
     persisted: "cm2026.offline.persisted",
-    hideYoungBlood: "cm2026.hideYoungBlood.v2"
+    hideYoungBlood: "cm2026.hideYoungBlood.v2",
+    hiddenSessions: "cm2026.hiddenSessions.v1"
   };
+  const SWIPE_HIDE_THRESHOLD = 72;
+  const SWIPE_MAX_OFFSET = 118;
+  const SWIPE_LOCK_MS = 320;
   const appState = {
     days: [],
     details: {},
@@ -115,6 +119,7 @@
     lastFocus: null,
     sourceData: null,
     favoriteIds: new Set(),
+    hiddenSessionIds: new Set(),
     offlineSaveInFlight: null,
     hideYoungBlood: false
   };
@@ -136,6 +141,7 @@
 
   function init() {
     loadFavoriteSessions();
+    loadHiddenSessions();
     loadFilterState();
     const backupData = window.SCHEDULE_DATA ? null : readScheduleBackup();
     const sourceData = window.SCHEDULE_DATA || backupData || FALLBACK_DATA;
@@ -143,6 +149,7 @@
     appState.sourceData = sourceData;
     appState.days = normalized.days;
     appState.details = normalized.details;
+    pruneHiddenSessions();
 
     renderTabs(appState.days);
     renderDays(appState.days);
@@ -382,7 +389,23 @@
       renderDays(appState.days);
     });
 
-    controls.append(toggle);
+    const hiddenCount = hiddenSessionCount();
+    const hiddenLabel = hiddenCount === 1 ? "1 ukryta sesja" : `${hiddenCount} ukrytych sesji`;
+    const restore = document.createElement("button");
+    restore.className = "restore-hidden";
+    restore.type = "button";
+    restore.disabled = hiddenCount === 0;
+    restore.setAttribute("aria-label", hiddenCount ? `Przywróć ${hiddenLabel}` : "Brak ukrytych sesji do przywrócenia");
+    restore.innerHTML = `
+      <span class="restore-icon" aria-hidden="true">↺</span>
+      <span class="restore-copy">
+        <strong>Przywróć ukryte</strong>
+        <span>${hiddenCount ? hiddenLabel : "Brak ukrytych sesji"}</span>
+      </span>
+    `;
+    restore.addEventListener("click", restoreHiddenSessions);
+
+    controls.append(toggle, restore);
     content.append(logoLink, controls);
     panel.append(content);
     return panel;
@@ -548,7 +571,13 @@
       openButton.append(details);
     }
 
-    openButton.addEventListener("click", () => openSession(session.id, openButton));
+    openButton.addEventListener("click", (event) => {
+      if (card.dataset.swipeLocked === "true") {
+        event.preventDefault();
+        return;
+      }
+      openSession(session.id, openButton);
+    });
     card.append(openButton);
 
     if (canFavorite) {
@@ -563,7 +592,88 @@
       card.append(favoriteButton);
     }
 
+    bindSwipeToHide(card, session);
     return card;
+  }
+
+  function bindSwipeToHide(card, session) {
+    let pointerId = null;
+    let startX = 0;
+    let startY = 0;
+    let deltaX = 0;
+    let tracking = false;
+    let swiping = false;
+
+    const resetSwipe = () => {
+      tracking = false;
+      swiping = false;
+      pointerId = null;
+      deltaX = 0;
+      card.classList.remove("is-swiping");
+      card.style.removeProperty("--swipe-x");
+    };
+
+    const lockClick = () => {
+      card.dataset.swipeLocked = "true";
+      window.setTimeout(() => {
+        if (card.dataset.swipeLocked === "true") delete card.dataset.swipeLocked;
+      }, SWIPE_LOCK_MS);
+    };
+
+    const onPointerDown = (event) => {
+      if (event.button !== undefined && event.button !== 0) return;
+      if (event.target.closest(".favorite-toggle")) return;
+      pointerId = event.pointerId;
+      startX = event.clientX;
+      startY = event.clientY;
+      deltaX = 0;
+      tracking = true;
+      swiping = false;
+      card.setPointerCapture?.(pointerId);
+    };
+
+    const onPointerMove = (event) => {
+      if (!tracking || event.pointerId !== pointerId) return;
+      const dx = event.clientX - startX;
+      const dy = event.clientY - startY;
+
+      if (!swiping) {
+        if (Math.abs(dy) > 20 && Math.abs(dy) > Math.abs(dx)) {
+          resetSwipe();
+          return;
+        }
+        if (dx < -12 && Math.abs(dx) > Math.abs(dy) * 1.15) {
+          swiping = true;
+          card.classList.add("is-swiping");
+          lockClick();
+        }
+      }
+
+      if (!swiping) return;
+      if (event.cancelable) event.preventDefault();
+      deltaX = Math.max(-SWIPE_MAX_OFFSET, Math.min(0, dx));
+      card.style.setProperty("--swipe-x", `${deltaX}px`);
+    };
+
+    const onPointerEnd = (event) => {
+      if (!tracking || event.pointerId !== pointerId) return;
+      if (swiping && deltaX <= -SWIPE_HIDE_THRESHOLD) {
+        card.classList.add("is-hiding");
+        window.setTimeout(() => hideSession(session.id), 120);
+        resetSwipe();
+        return;
+      }
+      if (swiping) lockClick();
+      resetSwipe();
+    };
+
+    card.addEventListener("pointerdown", onPointerDown);
+    card.addEventListener("pointermove", onPointerMove);
+    card.addEventListener("pointerup", onPointerEnd);
+    card.addEventListener("pointercancel", resetSwipe);
+    card.addEventListener("lostpointercapture", () => {
+      if (tracking && !swiping) resetSwipe();
+    });
   }
 
   function sessionClassNames(session, variant, favorite, canFavorite) {
@@ -632,6 +742,64 @@
     }
   }
 
+  function loadHiddenSessions() {
+    try {
+      const raw = localStorage.getItem(OFFLINE_STORAGE_KEYS.hiddenSessions);
+      const ids = raw ? JSON.parse(raw) : [];
+      appState.hiddenSessionIds = new Set(Array.isArray(ids) ? ids.map(text).filter(Boolean) : []);
+    } catch {
+      appState.hiddenSessionIds = new Set();
+    }
+  }
+
+  function saveHiddenSessions() {
+    try {
+      localStorage.setItem(OFFLINE_STORAGE_KEYS.hiddenSessions, JSON.stringify(Array.from(appState.hiddenSessionIds)));
+    } catch {
+    }
+  }
+
+  function hideSession(sessionId) {
+    appState.hiddenSessionIds.add(sessionId);
+    saveHiddenSessions();
+    renderTabs(appState.days);
+    renderDays(appState.days);
+  }
+
+  function restoreHiddenSessions() {
+    if (!appState.hiddenSessionIds.size) return;
+    appState.hiddenSessionIds.clear();
+    saveHiddenSessions();
+    renderTabs(appState.days);
+    renderDays(appState.days);
+  }
+
+  function hiddenSessionCount() {
+    const validIds = allSessionIds();
+    let count = 0;
+    appState.hiddenSessionIds.forEach((id) => {
+      if (validIds.has(id)) count += 1;
+    });
+    return count;
+  }
+
+  function pruneHiddenSessions() {
+    if (!appState.hiddenSessionIds.size) return;
+    const validIds = allSessionIds();
+    let changed = false;
+    appState.hiddenSessionIds.forEach((id) => {
+      if (!validIds.has(id)) {
+        appState.hiddenSessionIds.delete(id);
+        changed = true;
+      }
+    });
+    if (changed) saveHiddenSessions();
+  }
+
+  function allSessionIds() {
+    return new Set(appState.days.flatMap((day) => (day.sessions || []).map((session) => session.id)));
+  }
+
   function loadFilterState() {
     try {
       appState.hideYoungBlood = localStorage.getItem(OFFLINE_STORAGE_KEYS.hideYoungBlood) === "true";
@@ -656,7 +824,7 @@
   }
 
   function shouldHideSession(session) {
-    return appState.hideYoungBlood && isYoungBloodZone(session.zone);
+    return appState.hiddenSessionIds.has(session.id) || (appState.hideYoungBlood && isYoungBloodZone(session.zone));
   }
 
   function shouldHideZone(zone) {
