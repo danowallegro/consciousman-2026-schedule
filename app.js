@@ -87,18 +87,16 @@
   const FULL_WIDTH_ZONE_PATTERN = /^(wszyscy|scena główna|scena glowna)$/i;
   const YOUNG_BLOOD_ZONE = "młoda krew";
   const HOME_TAB_ID = "home";
-  const OFFLINE_CACHE_NAME = "consciousman-2026-shell-v13";
+  const OFFLINE_CACHE_NAME = "consciousman-2026-shell-v14";
   const OFFLINE_ASSETS = [
     "./",
     "./index.html",
-    "./styles.css?v=13",
-    "./app.js?v=13",
-    "./data.js?v=13",
-    "./styles.css",
-    "./app.js",
-    "./data.js",
+    "./styles.min.css?v=14",
+    "./app.min.js?v=14",
+    "./data.min.js?v=14",
     "./manifest.webmanifest",
     "./icon.svg",
+    "./assets/consciousman-logo.png",
     "./assets/festival-map-2026.webp"
   ];
   const OFFLINE_STORAGE_KEYS = {
@@ -115,19 +113,13 @@
     activeView: HOME_TAB_ID,
     activeDay: 0,
     lastFocus: null,
-    deferredInstallPrompt: null,
     sourceData: null,
     favoriteIds: new Set(),
     offlineSaveInFlight: null,
-    offlineSavedAt: "",
-    storagePersisted: false,
     hideYoungBlood: false
   };
 
   const el = {
-    title: document.querySelector("h1"),
-    eyebrow: document.querySelector(".eyebrow"),
-    dataNote: document.getElementById("data-note"),
     tabs: document.getElementById("day-tabs"),
     days: document.getElementById("schedule-days"),
     dialog: document.getElementById("session-dialog"),
@@ -137,37 +129,27 @@
     dialogFacts: document.getElementById("dialog-facts"),
     dialogDescription: document.getElementById("dialog-description"),
     mapButton: document.getElementById("open-map"),
-    mapDialog: document.getElementById("map-dialog"),
-    installButton: document.getElementById("install-app"),
-    saveOfflineButton: document.getElementById("save-offline"),
-    offlineStatus: document.getElementById("offline-status")
+    mapDialog: document.getElementById("map-dialog")
   };
 
   document.addEventListener("DOMContentLoaded", init);
 
   function init() {
-    loadOfflineState();
     loadFavoriteSessions();
     loadFilterState();
     const backupData = window.SCHEDULE_DATA ? null : readScheduleBackup();
     const sourceData = window.SCHEDULE_DATA || backupData || FALLBACK_DATA;
-    const usingFallback = !window.SCHEDULE_DATA && !backupData;
     const normalized = normalizeSchedule(sourceData);
     appState.sourceData = sourceData;
     appState.days = normalized.days;
     appState.details = normalized.details;
 
-    renderHeader(normalized.meta, usingFallback);
     renderTabs(appState.days);
     renderDays(appState.days);
     bindDialog();
     bindMapDialog();
-    bindInstall();
     rememberScheduleData(sourceData);
     registerServiceWorker();
-    updateConnectionStatus();
-    window.addEventListener("online", updateConnectionStatus);
-    window.addEventListener("offline", updateConnectionStatus);
   }
 
   function normalizeSchedule(input) {
@@ -286,18 +268,6 @@
     return Array.from(groups.values());
   }
 
-  function renderHeader(meta, usingFallback) {
-    if (!el.title || !el.eyebrow || !el.dataNote) return;
-    el.title.textContent = meta.title || FALLBACK_DATA.event.title;
-    el.eyebrow.textContent = meta.subtitle || FALLBACK_DATA.event.subtitle;
-    el.dataNote.innerHTML = "";
-    const note = document.createElement("span");
-    note.textContent = usingFallback
-      ? "Przykład lokalny. Offline działa po uruchomieniu przez HTTP(S)."
-      : meta.note || `Dane z programu. Offline zapisuje się automatycznie po wejściu.${meta.sourceUrl ? ` Źródło: ${meta.sourceUrl}` : ""}`;
-    el.dataNote.append(note);
-  }
-
   function renderTabs(days) {
     el.tabs.textContent = "";
     el.tabs.append(renderHomeTab());
@@ -384,11 +354,10 @@
     logoLink.rel = "noopener";
     logoLink.setAttribute("aria-label", "Conscious Man");
     logoLink.innerHTML = `
-      <img src="./icon.svg" alt="" loading="eager" decoding="async">
-      <span class="event-wordmark">
-        <span class="event-logo-kicker">Conscious Man</span>
-        <span class="event-logo-title">2026</span>
+      <span class="event-logo-surface">
+        <img src="./assets/consciousman-logo.png" alt="Conscious Man" loading="eager" decoding="async">
       </span>
+      <span class="event-site-link">consciousman.pl</span>
     `;
 
     const controls = document.createElement("div");
@@ -651,7 +620,7 @@
       const raw = localStorage.getItem(OFFLINE_STORAGE_KEYS.favorites);
       const ids = raw ? JSON.parse(raw) : [];
       appState.favoriteIds = new Set(Array.isArray(ids) ? ids.map(text).filter(Boolean) : []);
-    } catch (error) {
+    } catch {
       appState.favoriteIds = new Set();
     }
   }
@@ -659,15 +628,14 @@
   function saveFavoriteSessions() {
     try {
       localStorage.setItem(OFFLINE_STORAGE_KEYS.favorites, JSON.stringify(Array.from(appState.favoriteIds)));
-    } catch (error) {
-      setOfflineStatus("offline", "Nie zapisano ulubionych");
+    } catch {
     }
   }
 
   function loadFilterState() {
     try {
       appState.hideYoungBlood = localStorage.getItem(OFFLINE_STORAGE_KEYS.hideYoungBlood) === "true";
-    } catch (error) {
+    } catch {
       appState.hideYoungBlood = false;
     }
   }
@@ -675,8 +643,7 @@
   function saveFilterState() {
     try {
       localStorage.setItem(OFFLINE_STORAGE_KEYS.hideYoungBlood, String(appState.hideYoungBlood));
-    } catch (error) {
-      // The filter still works for the current page load if localStorage is unavailable.
+    } catch {
     }
   }
 
@@ -883,54 +850,13 @@
       .filter((detail) => detail && (detail.description || detail.bio || detail.title || detail.speaker));
   }
 
-  function bindInstall() {
-    if (!el.installButton || !el.saveOfflineButton) return;
-
-    if (window.matchMedia("(display-mode: standalone)").matches || navigator.standalone) {
-      el.installButton.hidden = true;
-    }
-
-    window.addEventListener("beforeinstallprompt", (event) => {
-      event.preventDefault();
-      appState.deferredInstallPrompt = event;
-    });
-
-    el.installButton.addEventListener("click", async () => {
-      if (!appState.deferredInstallPrompt) {
-        setOfflineStatus("", "Menu: Dodaj do ekranu");
-        return;
-      }
-      appState.deferredInstallPrompt.prompt();
-      await appState.deferredInstallPrompt.userChoice;
-      appState.deferredInstallPrompt = null;
-      el.installButton.hidden = true;
-    });
-
-    el.saveOfflineButton.addEventListener("click", async () => {
-      updateSaveOfflineButton(true);
-      try {
-        await saveOfflineBundle({ silent: false });
-      } catch (error) {
-        setOfflineStatus("offline", "Offline niedostępne");
-      } finally {
-        updateSaveOfflineButton(false);
-      }
-    });
-
-    updateSaveOfflineButton(false);
-  }
-
   async function registerServiceWorker() {
-    if (!canUseServiceWorker()) {
-      setOfflineStatus("offline", "Offline działa po HTTP(S)");
-      return;
-    }
+    if (!canUseServiceWorker()) return;
 
     try {
       await ensureServiceWorker();
-      await saveOfflineBundle({ silent: true });
-    } catch (error) {
-      setOfflineStatus("offline", "Offline niedostępne");
+      await saveOfflineBundle();
+    } catch {
     }
   }
 
@@ -942,11 +868,10 @@
     return "serviceWorker" in navigator && ["http:", "https:"].includes(window.location.protocol);
   }
 
-  async function saveOfflineBundle({ silent = false } = {}) {
+  async function saveOfflineBundle() {
     if (appState.offlineSaveInFlight) return appState.offlineSaveInFlight;
 
     appState.offlineSaveInFlight = (async () => {
-      if (!silent) setOfflineStatus("", "Zapisywanie...");
       rememberScheduleData(appState.sourceData || window.SCHEDULE_DATA || FALLBACK_DATA);
       const persistent = await requestStoragePersistence();
       const cacheSaved = await cacheOfflineAssets().catch(() => false);
@@ -957,8 +882,6 @@
       }
 
       markOfflineSaved({ persistent, cacheSaved, swSaved });
-      setOfflineStatus("ready", savedStatusLabel());
-      updateSaveOfflineButton(false);
       return { persistent, cacheSaved, swSaved };
     })();
 
@@ -990,7 +913,7 @@
     try {
       const alreadyPersistent = await navigator.storage.persisted?.();
       return alreadyPersistent || Boolean(await navigator.storage.persist());
-    } catch (error) {
+    } catch {
       return false;
     }
   }
@@ -1000,8 +923,7 @@
       if (data && data !== FALLBACK_DATA) {
         localStorage.setItem(OFFLINE_STORAGE_KEYS.dataBackup, JSON.stringify(data));
       }
-    } catch (error) {
-      // Private browsing or quota limits can block localStorage; service worker cache still covers offline use.
+    } catch {
     }
   }
 
@@ -1009,72 +931,18 @@
     try {
       const raw = localStorage.getItem(OFFLINE_STORAGE_KEYS.dataBackup);
       return raw ? JSON.parse(raw) : null;
-    } catch (error) {
+    } catch {
       return null;
-    }
-  }
-
-  function loadOfflineState() {
-    try {
-      appState.offlineSavedAt = localStorage.getItem(OFFLINE_STORAGE_KEYS.savedAt) || "";
-      appState.storagePersisted = localStorage.getItem(OFFLINE_STORAGE_KEYS.persisted) === "true";
-    } catch (error) {
-      appState.offlineSavedAt = "";
-      appState.storagePersisted = false;
     }
   }
 
   function markOfflineSaved({ persistent }) {
     const savedAt = new Date().toISOString();
-    appState.offlineSavedAt = savedAt;
-    appState.storagePersisted = Boolean(persistent);
     try {
       localStorage.setItem(OFFLINE_STORAGE_KEYS.savedAt, savedAt);
       localStorage.setItem(OFFLINE_STORAGE_KEYS.persisted, String(Boolean(persistent)));
-    } catch (error) {
-      // Status can still show for this page load even if localStorage is blocked.
+    } catch {
     }
-  }
-
-  function savedStatusLabel() {
-    if (!appState.offlineSavedAt) return "Gotowe offline";
-    return `Offline zapisane ${formatSavedAt(appState.offlineSavedAt)}`;
-  }
-
-  function formatSavedAt(value) {
-    const date = new Date(value);
-    if (Number.isNaN(date.getTime())) return "";
-    return new Intl.DateTimeFormat("pl-PL", {
-      day: "2-digit",
-      month: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit"
-    }).format(date);
-  }
-
-  function updateSaveOfflineButton(isSaving) {
-    if (!el.saveOfflineButton) return;
-    el.saveOfflineButton.disabled = Boolean(isSaving);
-    el.saveOfflineButton.innerHTML = isSaving
-      ? "<span aria-hidden=\"true\">↓</span>Zapisywanie..."
-      : "<span aria-hidden=\"true\">↻</span>Odśwież offline";
-  }
-
-  function updateConnectionStatus() {
-    if (!canUseServiceWorker()) return;
-    if (!navigator.onLine) {
-      setOfflineStatus("offline", "Tryb offline");
-      return;
-    }
-    navigator.serviceWorker?.controller
-      ? setOfflineStatus("ready", savedStatusLabel())
-      : setOfflineStatus("", "Online");
-  }
-
-  function setOfflineStatus(state, label) {
-    if (!el.offlineStatus) return;
-    el.offlineStatus.className = `status-pill ${state}`.trim();
-    el.offlineStatus.textContent = label;
   }
 
   function isFullWidthSession(session) {

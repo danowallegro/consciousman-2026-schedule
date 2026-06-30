@@ -6,6 +6,7 @@
   --paper: #fffaf0;
   --line: #ded6c8;
   --black: #111111;
+  --brown: #24170f;
   --teal: #1f766e;
   --teal-soft: #dcefeb;
   --coral: #c85f49;
@@ -181,46 +182,45 @@ p {
 
 .home-panel-content {
   display: grid;
-  max-width: 680px;
-  gap: 28px;
+  max-width: 720px;
+  gap: 22px;
   padding: clamp(18px, 4vw, 38px) 0 84px;
 }
 
 .event-logo {
-  display: inline-flex;
-  width: fit-content;
+  display: grid;
+  width: min(100%, 380px);
   max-width: 100%;
-  align-items: center;
-  gap: 16px;
-  color: var(--ink);
+  justify-items: center;
+  gap: 12px;
+  color: #f3dec0;
   text-decoration: none;
 }
 
-.event-logo img {
-  width: clamp(70px, 16vw, 102px);
-  height: clamp(70px, 16vw, 102px);
-  border-radius: 22%;
-  box-shadow: 0 18px 42px rgb(23 23 23 / 16%);
-}
-
-.event-wordmark {
+.event-logo-surface {
   display: grid;
-  gap: 2px;
+  width: min(100%, 360px);
+  aspect-ratio: 1;
+  place-items: center;
+  border: 1px solid rgb(243 222 192 / 20%);
+  border-radius: 8px;
+  background: var(--brown);
+  padding: clamp(36px, 8vw, 58px);
+  box-shadow: 0 24px 70px rgb(23 23 23 / 18%);
 }
 
-.event-logo-kicker {
-  color: var(--teal);
-  font-size: 0.78rem;
+.event-logo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.event-site-link {
+  color: var(--brown);
+  font-size: 0.9rem;
   font-weight: 950;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-}
-
-.event-logo-title {
-  color: var(--black);
-  font-size: clamp(2.35rem, 9vw, 4.25rem);
-  font-weight: 950;
-  line-height: 0.94;
 }
 
 .home-controls {

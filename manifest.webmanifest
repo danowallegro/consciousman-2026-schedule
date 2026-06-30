@@ -5,9 +5,15 @@
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#fffaf0",
-  "theme_color": "#151515",
+  "background_color": "#24170f",
+  "theme_color": "#24170f",
   "icons": [
+    {
+      "src": "./assets/consciousman-logo.png",
+      "sizes": "500x500",
+      "type": "image/png",
+      "purpose": "any"
+    },
     {
       "src": "./icon.svg",
       "sizes": "any",

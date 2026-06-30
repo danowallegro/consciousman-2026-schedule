@@ -1884,18 +1884,16 @@ window.SCHEDULE_DATA = {
     }
   },
   "offline": {
-    "cacheName": "consciousman-2026-shell-v13",
+    "cacheName": "consciousman-2026-shell-v14",
     "files": [
       "./",
       "./index.html",
-      "./styles.css?v=13",
-      "./app.js?v=13",
-      "./data.js?v=13",
-      "./styles.css",
-      "./app.js",
-      "./data.js",
+      "./styles.min.css?v=14",
+      "./app.min.js?v=14",
+      "./data.min.js?v=14",
       "./manifest.webmanifest",
       "./icon.svg",
+      "./assets/consciousman-logo.png",
       "./assets/festival-map-2026.webp"
     ]
   }

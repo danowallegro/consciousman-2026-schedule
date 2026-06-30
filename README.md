@@ -15,4 +15,4 @@ gh repo create consciousman-2026-schedule --public --source=. --remote=origin --
 gh api "repos/{owner}/{repo}/pages" -X POST -F "source[branch]=main" -F "source[path]=/"
 ```
 
-The page saves its offline package automatically after the first load from GitHub Pages. Use the in-page **Odśwież offline** button to refresh the local offline copy before the event.
+The page saves its offline package automatically after the first load from GitHub Pages. Open the live page once before the event so the browser can cache the schedule, map, logo, and app shell.
