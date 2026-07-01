@@ -27,7 +27,8 @@ DETAILS_PATH = next(
     if path.exists()
 )
 OUT_PATH = SCRIPT_DIR / "data.js" if (SCRIPT_DIR / "index.html").exists() else ROOT / "work" / "consciousman-schedule" / "data.js"
-APP_VERSION = 25
+VERSION_PATH = OUT_PATH.with_name("version.json")
+APP_VERSION = 26
 
 
 def slugify(value: str) -> str:
@@ -442,7 +443,12 @@ def main() -> None:
         + ";\n",
         encoding="utf-8",
     )
+    VERSION_PATH.write_text(
+        json.dumps(data["offline"], ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
     print(f"Wrote {OUT_PATH}")
+    print(f"Wrote {VERSION_PATH}")
 
 
 if __name__ == "__main__":

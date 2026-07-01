@@ -87,15 +87,15 @@
   const FULL_WIDTH_ZONE_PATTERN = /^(wszyscy|scena główna|scena glowna)$/i;
   const YOUNG_BLOOD_ZONE = "młoda krew";
   const HOME_TAB_ID = "home";
-  const APP_VERSION = 25;
+  const APP_VERSION = 26;
   const VERSION_URL = "./version.json";
-  const OFFLINE_CACHE_NAME = "consciousman-2026-shell-v25";
+  const OFFLINE_CACHE_NAME = "consciousman-2026-shell-v26";
   const OFFLINE_ASSETS = [
     "./",
     "./index.html",
-    "./styles.min.css?v=25",
-    "./app.min.js?v=25",
-    "./data.min.js?v=25",
+    "./styles.min.css?v=26",
+    "./app.min.js?v=26",
+    "./data.min.js?v=26",
     "./version.json",
     "./manifest.webmanifest",
     "./icon.svg",
@@ -623,12 +623,24 @@
       openButton.append(details);
     }
 
-    openButton.addEventListener("click", (event) => {
+    const openCurrentSession = () => {
       if (card.dataset.swipeLocked === "true") {
-        event.preventDefault();
-        return;
+        return false;
       }
       openSession(session.id, openButton);
+      return true;
+    };
+
+    openButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+      if (!openCurrentSession()) {
+        event.preventDefault();
+      }
+    });
+
+    card.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.target.closest(".favorite-toggle")) return;
+      openCurrentSession();
     });
     card.append(openButton);
 
@@ -674,6 +686,7 @@
 
     const onPointerDown = (event) => {
       if (event.button !== undefined && event.button !== 0) return;
+      if (event.pointerType === "mouse") return;
       if (event.target.closest(".favorite-toggle")) return;
       pointerId = event.pointerId;
       startX = event.clientX;

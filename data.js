@@ -2004,14 +2004,14 @@ window.SCHEDULE_DATA = {
     }
   },
   "offline": {
-    "version": 25,
-    "cacheName": "consciousman-2026-shell-v25",
+    "version": 26,
+    "cacheName": "consciousman-2026-shell-v26",
     "files": [
       "./",
       "./index.html",
-      "./styles.min.css?v=25",
-      "./app.min.js?v=25",
-      "./data.min.js?v=25",
+      "./styles.min.css?v=26",
+      "./app.min.js?v=26",
+      "./data.min.js?v=26",
       "./version.json",
       "./manifest.webmanifest",
       "./icon.svg",
