@@ -88,7 +88,7 @@ window.SCHEDULE_DATA = {
           "speaker": "Mana Akitanga",
           "title": "Haka Mau Rakau",
           "anchors": [
-            "hava-2026"
+            "hava-haka-mau-rakau"
           ],
           "kind": "session",
           "note": "",
@@ -101,7 +101,7 @@ window.SCHEDULE_DATA = {
           "speaker": "Włodzimierz Wieliczkowski",
           "title": "Wprowadzenie do Jogi Taoistycznej",
           "anchors": [
-            "wieliczkowski"
+            "wieliczkowski-wprowadzenie"
           ],
           "kind": "session",
           "note": "",
@@ -151,7 +151,7 @@ window.SCHEDULE_DATA = {
           "speaker": "Adam Kowalewski",
           "title": "Nie jesteś zmęczony - jesteś przebodźcowany! Jak zrobić RESET układu nerwowego",
           "anchors": [
-            "kowalewski"
+            "kowalewski-reset"
           ],
           "kind": "session",
           "note": "",
@@ -164,7 +164,7 @@ window.SCHEDULE_DATA = {
           "speaker": "Maciej Kupś Rob in Wodd",
           "title": "Z drogi ku zatraceniu do odnalezienia radości życia",
           "anchors": [
-            "kups"
+            "kups-z-drogi"
           ],
           "kind": "session",
           "note": "",
@@ -312,7 +312,7 @@ window.SCHEDULE_DATA = {
           "speaker": "Adam Kowalewski",
           "title": "Regeneracja to siła. Sen i oddech jako fundament nowej jakości życia",
           "anchors": [
-            "kowalewski"
+            "kowalewski-regeneracja"
           ],
           "kind": "session",
           "note": "",
@@ -336,7 +336,7 @@ window.SCHEDULE_DATA = {
           "speaker": "Michał Pyziak",
           "title": "Kręgi Starszyzny",
           "anchors": [
-            "michal-pyziak"
+            "pyziak-kregi-starszyzny"
           ],
           "kind": "session",
           "note": "",
@@ -375,7 +375,7 @@ window.SCHEDULE_DATA = {
           "speaker": "Andrzej Hrycaj",
           "title": "Spotkanie z Cieniem",
           "anchors": [
-            "hrycaj"
+            "hrycaj-cien"
           ],
           "kind": "session",
           "note": "",
@@ -481,7 +481,7 @@ window.SCHEDULE_DATA = {
           "speaker": "Mana Akitanga",
           "title": "AOMANA",
           "anchors": [
-            "hava-2026"
+            "hava-aomana"
           ],
           "kind": "session",
           "note": "",
@@ -494,7 +494,7 @@ window.SCHEDULE_DATA = {
           "speaker": "Włodzimierz Wieliczkowski",
           "title": "Regulacja stanów psychoemocjonalnych (Energetyczna i psychofizyczna samoobrona)",
           "anchors": [
-            "wieliczkowski"
+            "wieliczkowski-regulacja"
           ],
           "kind": "session",
           "note": "",
@@ -583,7 +583,7 @@ window.SCHEDULE_DATA = {
           "speaker": "Maciej Kupś",
           "title": "Drewnoterapia: Uwalnianie umiejętności",
           "anchors": [
-            "maciej-kups"
+            "kups-drewnoterapia"
           ],
           "kind": "session",
           "note": "",
@@ -733,7 +733,7 @@ window.SCHEDULE_DATA = {
           "speaker": "Kacper Klimczak - Pedagog Szczęścia",
           "title": "Jak przestać się mijać w relacji i w końcu się dogadać?",
           "anchors": [
-            "klimczak"
+            "klimczak-relacja"
           ],
           "kind": "session",
           "note": "",
@@ -876,7 +876,7 @@ window.SCHEDULE_DATA = {
           "speaker": "Włodzimierz Wieliczkowski",
           "title": "TAO relacji (Joga seksu)",
           "anchors": [
-            "wieliczkowski"
+            "wieliczkowski-tao-relacji"
           ],
           "kind": "session",
           "note": "",
@@ -950,7 +950,7 @@ window.SCHEDULE_DATA = {
           "speaker": "Michał Pyziak & Team",
           "title": "Spotkanie Starsi i Młodsi",
           "anchors": [
-            "michal-pyziak"
+            "pyziak-starsi-mlodsi"
           ],
           "kind": "session",
           "note": "",
@@ -1002,7 +1002,7 @@ window.SCHEDULE_DATA = {
           "speaker": "Kacper Klimczak - Pedagog Szczęścia",
           "title": "Męskie doświadczanie złości",
           "anchors": [
-            "klimczak"
+            "klimczak-zlosc"
           ],
           "kind": "session",
           "note": "",
@@ -1054,7 +1054,7 @@ window.SCHEDULE_DATA = {
           "speaker": "Andrzej Hrycaj",
           "title": "Jaja w lodzie, ogień w sercu - Strefa morsowania - balia z lodem",
           "anchors": [
-            "hrycaj"
+            "hrycaj-zimno"
           ],
           "kind": "ceremony",
           "note": "",
@@ -1881,16 +1881,136 @@ window.SCHEDULE_DATA = {
       "image": "https://consciousman.pl/wp-content/uploads/2026/06/jannink.webp",
       "description": "Zowie o swoich ceremoniach:\n\nAs the Sweat Lodge is also called the House of Breath, the first door in the East is connected to the element of Air, the place where we take the first breath of life. With that breath, we inhale the wisdom of all life that has breathed before us. We are born into the song of life and travel with that song trough the elements of water then fire until we breathe our last breath in the North earth. Then the cycle begins again. As we enter the lodge with presence rooted in brotherhood, be prepared to become one breath, one heartbeat, one song. Through prayer, story, song, and silence, our individual voices merge into something greater than ourselves. Here, we have the opportunity to process our experiences under the guidance of the elements, Air, Water, Fire, and Earth, and in relationship with the Great Mystery that moves through them all. The stones are awakened in the sacred fire and blessed with herbs as they enter the lodge as glowing spirits. Together, we support one another through prayer, song, and shared stories. The dance of Water and Fire creates a transformative journey, cleansing body, mind, and spirit, leaving us renewed, rebalanced, and reborn.",
       "bio": "I was privileged to be born in the City of Amsterdam studying graphic, interaction, industrial and experience design and traveling the world. I had a successful career in the creative industry and a design office ( labolleur.com ), creating tailor made brand experiences. Until I felt a hunger to search for the meaning of my life. What am I actually doing here? Who am I? This search is still ever evolving and continuously bringing me new experiences of life. At some point I was asked to study the sacred plant medicines as an apprentice, being schooled in a traditional way. Step by step I released my former life. My curiosity and search for truth brought me to various teachers from the Andean Amazonian traditions and tribes. I have been studying the traditional rituals, songs, icaros, chants and plant dieting deep in the jungle for months and I have been vision questing for 4, 7, 9, and 13 days and being a Sundancer. Traveling with medicine men and women (from Ecuador, Peru, Brazil and Mexico). The last years I have been studying and living the traditions of the Hunikuin, Noke Koi(Katukina) and Yawanawa. Now I live together with my wife, daughter and son on a beautiful land where I offer ceremony every full moon. Through the relationship I have cultivated with myself, the plants, ancient rituals, and the sweat lodge, I have found the tools that now support my work with others in their personal and spiritual growth. Rather than offering answers, I help create the conditions in which a person's own wisdom can emerge, along with an embodied sense of belonging and connection. With lightness, humor, and presence, my mission is to inspire people to live their lives in peace, freedom and love.\" Więcej o Zowie i jego pracy znajdziecie tu: WWW: www.zowie.nl FB: Zowie Jannink Insta: https://www.instagram.com/zowie_curious_explorer/"
+    },
+    "kowalewski-reset": {
+      "anchor": "kowalewski-reset",
+      "speaker": "Adam Kowalewski",
+      "title": "Nie jesteś zmęczony - jesteś przebodźcowany! Jak zrobić RESET układu nerwowego",
+      "image": "https://consciousman.pl/wp-content/uploads/2026/05/karol-kowalewski-2026.webp",
+      "description": "Większość osób funkcjonuje dziś w ciągłym napięciu, myląc zmęczenie z brakiem energii. W rzeczywistości problemem nie jest brak siły, lecz przeciążony układ nerwowy, który nie ma przestrzeni na regenerację. Ten wykład opiera się na pracy z oddechem, ciałem i świadomą regulacją układu nerwowego – narzędziach, które pozwalają odzyskać wpływ na własne reakcje, emocje i poziom energii. Podczas spotkania pokażę, jak rozpoznać stan przebodźcowania oraz jak w praktyce wprowadzić organizm w tryb regeneracji. Uczestnicy poznają konkretne techniki oddechowe i proste interwencje, które można zastosować od razu – w pracy, w relacjach i w sytuacjach stresowych. Efektem jest większy spokój, lepsza koncentracja, większa odporność psychiczna i zdolność podejmowania decyzji z poziomu stabilności, a nie napięcia",
+      "bio": "Psycholog kliniczny, trener oddechu i pasjonat zdrowia. Od ponad 20 lat pracuję z ludźmi – pomagam im odzyskać spokój, energię i kontakt ze sobą. Jako psycholog kliniczny łączę naukę z praktyką, pokazując, jak dzięki oddechowi, zimnu, pracy z podświadomością i praktycznym medytacjom można realnie wpłynąć na ciało, emocje i umysł. Jestem instruktorem metody Wima Hofa oraz człowiekiem, który przez pięć lat pracował w szpitalu psychiatrycznym – zrozumiałem tam, że prawdziwe uzdrowienie zaczyna się od kontaktu z samym sobą. Przetestowałem na sobie ponad 120 metod poprawiających jakość życia – od psychologii i neurobiologii po biohacking i trening mentalny. Nie interesuje mnie teoria – interesują mnie rezultaty, które możesz poczuć w swoim ciele już po kilku minutach pracy. W ostatnich latach przez moje warsztaty i szkolenia przeszło ponad 20 000 osób w całej Europie. Pomogłem im redukować stres, odzyskać spokój, odwagę i wewnętrzną moc – przez zaufanie do własnego ciała oraz świadomy oddech. Nie motywuję. Uczę, jak wrócić do siebie. Moje motto: \"Życie jest proste – oddychaj.\" FB: https://www.facebook.com/profile.php?id=100063820972336 IG: https://www.instagram.com/adam_kowalewski_wim_hof_method/ LI: https://www.linkedin.com/in/adam-kowalewski/ YT: https://www.youtube.com/@adamkowalewskipsycholog311 Tiktok: https://www.tiktok.com/@adam_biohacker Spotify: https://open.spotify.com/show/0ojw8MsrjBgyDOx2PgNpn6"
+    },
+    "kowalewski-regeneracja": {
+      "anchor": "kowalewski-regeneracja",
+      "speaker": "Adam Kowalewski",
+      "title": "Regeneracja to siła. Sen i oddech jako fundament NOWEJ JAKOŚCI ŻYCIA.",
+      "image": "https://consciousman.pl/wp-content/uploads/2026/05/karol-kowalewski-2026.webp",
+      "description": "Sen i oddech to dwa podstawowe filary regeneracji, które w dzisiejszym świecie są najczęściej zaniedbywane. Wiele osób funkcjonuje w stanie chronicznego zmęczenia, nie zdając sobie sprawy, że jakość snu i sposób oddychania bezpośrednio wpływają na poziom energii, koncentrację, emocje i zdrowie. Ten wykład pokazuje, jak poprzez świadomą pracę z oddechem można realnie poprawić jakość snu i proces regeneracji. Uczestnicy dowiedzą się, jakie mechanizmy stoją za problemami ze snem, jak oddech wpływa na układ nerwowy oraz jakie konkretne działania wprowadzić, aby szybciej zasypiać i budzić się z energią. Efektem jest poprawa jakości życia, większa wydajność, lepsza równowaga emocjonalna i realne poczucie siły wynikające z regeneracji, a nie ciągłego napięcia",
+      "bio": "Psycholog kliniczny, trener oddechu i pasjonat zdrowia. Od ponad 20 lat pracuję z ludźmi – pomagam im odzyskać spokój, energię i kontakt ze sobą. Jako psycholog kliniczny łączę naukę z praktyką, pokazując, jak dzięki oddechowi, zimnu, pracy z podświadomością i praktycznym medytacjom można realnie wpłynąć na ciało, emocje i umysł. Jestem instruktorem metody Wima Hofa oraz człowiekiem, który przez pięć lat pracował w szpitalu psychiatrycznym – zrozumiałem tam, że prawdziwe uzdrowienie zaczyna się od kontaktu z samym sobą. Przetestowałem na sobie ponad 120 metod poprawiających jakość życia – od psychologii i neurobiologii po biohacking i trening mentalny. Nie interesuje mnie teoria – interesują mnie rezultaty, które możesz poczuć w swoim ciele już po kilku minutach pracy. W ostatnich latach przez moje warsztaty i szkolenia przeszło ponad 20 000 osób w całej Europie. Pomogłem im redukować stres, odzyskać spokój, odwagę i wewnętrzną moc – przez zaufanie do własnego ciała oraz świadomy oddech. Nie motywuję. Uczę, jak wrócić do siebie. Moje motto: \"Życie jest proste – oddychaj.\" FB: https://www.facebook.com/profile.php?id=100063820972336 IG: https://www.instagram.com/adam_kowalewski_wim_hof_method/ LI: https://www.linkedin.com/in/adam-kowalewski/ YT: https://www.youtube.com/@adamkowalewskipsycholog311 Tiktok: https://www.tiktok.com/@adam_biohacker Spotify: https://open.spotify.com/show/0ojw8MsrjBgyDOx2PgNpn6"
+    },
+    "wieliczkowski-wprowadzenie": {
+      "anchor": "wieliczkowski-wprowadzenie",
+      "speaker": "Włodzimierz Wieliczkowski",
+      "title": "Wprowadzenie do Jogi Taoistycznej",
+      "image": "https://consciousman.pl/wp-content/uploads/2026/06/wieliczkowski.webp",
+      "description": "Wprowadzenie do Jogi Taoistycznej; Energetyczna Struktura Człowieka Sposoby oddychania; Regulacje energetycznego potencjału, praktyczne zastosowania; Taoistyczna Medytacja połączona z energetycznym zabiegiem grupowym",
+      "bio": "Wykłady prowadzi Włodzimierz Wieliczkowski, mistrz Tybetańskiej Klasztornej Szkoły Lun Hu Czuan (Szkoła Smoka i Tygrysa), 48 lat praktyki, dyplomowany naturoterapeuta, Kręgarstwo, Energoterapia, refleksologia, ziołolecznictwo, Trener Sztuk Walki. Założyciel Szkoły ,,Tao Arte\" (Taoistyczna Szkoła Świadomego Życia) od 1998."
+    },
+    "wieliczkowski-regulacja": {
+      "anchor": "wieliczkowski-regulacja",
+      "speaker": "Włodzimierz Wieliczkowski",
+      "title": "Regulacja stanów psychoemocjonalnych (Energetyczna i psychofizyczna samoobrona)",
+      "image": "https://consciousman.pl/wp-content/uploads/2026/06/wieliczkowski.webp",
+      "description": "Regulacja stanów psychoemocjonalnych ( Energetyczna i psychofizyczna samoobrona) Sposoby unikania i rozwiązywania konfliktów -ulica, praca, otoczenie; Taoistyczna Medytacja połączona z zabiegiem grupowym",
+      "bio": "Wykłady prowadzi Włodzimierz Wieliczkowski, mistrz Tybetańskiej Klasztornej Szkoły Lun Hu Czuan (Szkoła Smoka i Tygrysa), 48 lat praktyki, dyplomowany naturoterapeuta, Kręgarstwo, Energoterapia, refleksologia, ziołolecznictwo, Trener Sztuk Walki. Założyciel Szkoły ,,Tao Arte\" (Taoistyczna Szkoła Świadomego Życia) od 1998."
+    },
+    "wieliczkowski-tao-relacji": {
+      "anchor": "wieliczkowski-tao-relacji",
+      "speaker": "Włodzimierz Wieliczkowski",
+      "title": "TAO relacji (Joga seksu)",
+      "image": "https://consciousman.pl/wp-content/uploads/2026/06/wieliczkowski.webp",
+      "description": "TAO relacji (Joga seksu) Taoistyczna Medytacja połączona z grupowym zabiegiem energetycznym",
+      "bio": "Wykłady prowadzi Włodzimierz Wieliczkowski, mistrz Tybetańskiej Klasztornej Szkoły Lun Hu Czuan (Szkoła Smoka i Tygrysa), 48 lat praktyki, dyplomowany naturoterapeuta, Kręgarstwo, Energoterapia, refleksologia, ziołolecznictwo, Trener Sztuk Walki. Założyciel Szkoły ,,Tao Arte\" (Taoistyczna Szkoła Świadomego Życia) od 1998."
+    },
+    "hava-haka-mau-rakau": {
+      "anchor": "hava-haka-mau-rakau",
+      "speaker": "Mana Hava'i",
+      "title": "Haka Mau Rakau",
+      "image": "https://consciousman.pl/wp-content/uploads/2026/04/mana-hava-2026.webp",
+      "description": "Haka otwiera przestrzeń poprzez mocne uderzenia stopami, rezonujące pieśni i zbiorową energię, która potwierdza siłę oraz jedność grupy. Uosabia determinację, odwagę i obecność. Stopniowo Mau rākau przejmuje prowadzenie: tradycyjne drewniane bronie unoszą się i krzyżują z mistrzowską precyzją, ukazując dyscyplinę, strategię i samokontrolę. Ta fuzja jest głęboko zakorzeniona w czterech fundamentalnych wartościach Māori: Manaakitanga: gościnność i szacunek wobec innych — sztuka honorowania i troski o ludzi. Kotahitanga: jedność i solidarność — wspólne podążanie jako jedno ciało i jeden duch. Kaitiakitanga: opieka i odpowiedzialność wobec ziemi, tradycji i przyszłych pokoleń. Whanaungatanga: braterstwo i autentyczna więź — relacje, które łączą członków społeczności. Dzięki temu spotkaniu ekspresji plemiennej i pradawnej sztuki walki, występ staje się czymś znacznie więcej niż demonstracją: jest żywym rytuałem, w którym moc, dyscyplina, braterstwo i przekaz łączą się w głębokim szacunku dla tradycji Māori",
+      "bio": "Mana urodził się na Ra'iatea, legendarnej Hawaiki Nui — pierwotnej ziemi Polinezyjczyków. Pochodzi z linii przewodnictwa i siły: ze strony matki jego przodkiniami były kobiety-wodzynie, których mądrość kształtowała ich lud; ze strony ojca wywodzi się od najwyższego wodza Bora Bora oraz wojowników plemienia Waikato w Aotearoa, dziedzicząc odwagę i ducha opieki. Zgodnie z tradycją uczył się kultury, zwyczajów i wiedzy przodków od swoich dziadków, którzy pielęgnowali jego więź z ziemią, historiami i rytuałami jego ludu. Niesie ich nauki z pokorą, dzieląc się nimi z szacunkiem dla ziemi, przodków i wszystkich, którzy wchodzą w przestrzenie, które tworzy. Jego obecność nie polega na sile dla samej siły, lecz na honorowaniu many, mądrości i energii, które przez niego przepływają."
+    },
+    "hava-aomana": {
+      "anchor": "hava-aomana",
+      "speaker": "Mana Hava'i",
+      "title": "AOMANA",
+      "image": "https://consciousman.pl/wp-content/uploads/2026/04/mana-hava-2026.webp",
+      "description": "Aomana to autorska koncepcja inspirowana polinezyjską świadomością ruchu ciała i prowadzona przez siłę polinezyjskich rytmów. Niesione przez plemienne perkusje i głębokie wibracje bębnów, ciało zapraszane jest do uwolnienia się, wyjścia z umysłu i wejścia w instynkt. Nie chodzi tu o występ, lecz o odczuwanie. Każdy rytm staje się wezwaniem do ruchu, ugruntowania, odpuszczenia i przebudzenia energii życiowej. Zainspirowana tańcami żywiołów — Ziemi, Wody, Ognia i Powietrza — Aomana ponownie łączy uczestników z pierwotną, naturalną energią. Ruchy mogą być stabilne jak ziemia, płynne jak woda, dzikie jak ogień lub swobodne jak wiatr. Doświadczenie obejmuje również tańce zwierzęce, oddające hołd sile, majestatowi i instynktowi istot natury. Symboliczne wcielanie ich cech — siły, zwinności, obecności i czujności — pozwala uczestnikom odkrywać swoje wewnętrzne archetypy i budzić bardziej dziki, autentyczny wymiar siebie. Aomana jest zarówno podróżą wewnętrzną, jak i zbiorową: przestrzenią do wibracji, uwalniania napięcia i ponownego dostrojenia. To współczesny rytuał, w którym ciało staje się lekarstwem, prowadzone przez rytm, intencję i głęboką więź z żyjącym światem",
+      "bio": "Mana urodził się na Ra'iatea, legendarnej Hawaiki Nui — pierwotnej ziemi Polinezyjczyków. Pochodzi z linii przewodnictwa i siły: ze strony matki jego przodkiniami były kobiety-wodzynie, których mądrość kształtowała ich lud; ze strony ojca wywodzi się od najwyższego wodza Bora Bora oraz wojowników plemienia Waikato w Aotearoa, dziedzicząc odwagę i ducha opieki. Zgodnie z tradycją uczył się kultury, zwyczajów i wiedzy przodków od swoich dziadków, którzy pielęgnowali jego więź z ziemią, historiami i rytuałami jego ludu. Niesie ich nauki z pokorą, dzieląc się nimi z szacunkiem dla ziemi, przodków i wszystkich, którzy wchodzą w przestrzenie, które tworzy. Jego obecność nie polega na sile dla samej siły, lecz na honorowaniu many, mądrości i energii, które przez niego przepływają."
+    },
+    "hrycaj-zimno": {
+      "anchor": "hrycaj-zimno",
+      "speaker": "Andrzej Hrycaj",
+      "title": "Jaja w lodzie, ogień w sercu - Strefa morsowania - balia z lodem",
+      "image": "https://consciousman.pl/wp-content/uploads/2026/04/andrzej-hrycaj-2026.webp",
+      "description": "Czym jest świadome obcowanie z zimnem i co ma praca z zimnem do pracy męskiej? co kryje się pod powierzchnią czysto zdrowotnych benefitów ekspozycji na niską temperaturę. Jak wejść głębiej w praktykę terapii zimnem i świadomie z niej korzystać? Zimno jest surowym lecz jednocześnie szczodrym nauczycielem jak mawia Wim Hof. To czego nauczysz się od zimna zależy od Ciebie, pod warunkiem, że wiesz jak korzystać z jego lekcji. Otwarta ciekawość jest podejściem, które odsłania dosłownie odchłań możliwości doświadczania i czerpania z kontaktu z lodowatą wodą. Podczas tego warsztatu dowiesz się: czym różni się świadoma praca z zimnem od klasycznego morsowania jakie korzyści mogę z tego czerpać - zdrowotne, neurobiologiczne, emocjonalne, hormonalne, psychosomatyczne, treningowe, co się dzieje w moim organizmie, jakie mechanizmy uruchamia we mnie kontakt z zimnem, jak się przygotowywać, planować i traktować kontakt z zimnem jako praktykę oraz dbać o prawidłowe BHP, jak wykorzystywać techniki oddychania i nastawienia mentalnego (mindset) w pracy z zimnem, jakie przełożenie może mieć praca z zimnem na twoje życie - codzienne, wewnętrzne czy w interakcjach z innymi, jak ścieżka zimna może być twoją własną ścieżką odkrywania wewnętrznego nauczyciela, uzdrowiciela i lidera. Zimno jest stresorem w czystej postaci. Jest sygnałem dla mózgu, by przejść w tryb „walcz lub uciekaj\". Skoro jednak włazisz do lodowatej wody z własnej woli, to nie po to, by z niej natychmiast uciekać, a powalczyć możesz co najwyżej ze sobą. Co jeśli dzięki sztuce alchemii decydowania o swoim stanie mógłbyś zostać wojownikiem spokoju, którego serce płonie jasnym pełnym mocy płomieniem?",
+      "bio": "Andrzej Hrycaj, aktualnie kształci się w Szkole Jungowskiej przy Stowarzyszeniu Analityków Jungowskich. W relacji z ukochaną kobietą od ponad ćwierć wieku, ojciec dwójki dorosłych dzieci, podróżnik, człowiek, który sprzedał swój biznes żeby zamieszkać na górskiej polanie. Entuzjasta świadomych praktyk z ciałem, emocjami i nastawieniem mentalnym. Pracy z zimnem i oddechem uczył się od Wima Hofa oraz Tulku Lobsang Rinpoche, tybetańskiego mistrza tummo. Celebrator życia, zarówno, od zaangażowania społecznego w ochronę zagrożonego życia żab począwszy, na nauce tańca lindy-hop skończywszy. Propagator zasad głębokiej ekologii i zrozumienia, że wszystko jest połączone. Osobiste credo - „Bądź zmianą, którą pragniesz ujrzeć w świecie.\" Życie traktuje jako nieustającą podróż w której, każda chwila i każdy krok jest okazją, by postąpić choć odrobinę bardziej świadomie i tym samym lepiej. W pracy męskiej korzysta z przekazów pierwotnych kultur, symboliki mitów, w tym podróży bohatera, rytuałów, modelu koła medycyny i archetypów. Jego misją jest asystowanie i pomaganie innym w byciu szczęśliwym, zdrowym i pełnym mocy, autentycznym sobą. Więcej o Andrzeju i jego pracy znajdziecie tu: FB: fb.me//wewnetrznyogien YT: https://www.youtube.com/watch?v=UM8HD5J06sE"
+    },
+    "hrycaj-cien": {
+      "anchor": "hrycaj-cien",
+      "speaker": "Andrzej Hrycaj",
+      "title": "Spotkanie z Cieniem",
+      "image": "https://consciousman.pl/wp-content/uploads/2026/04/andrzej-hrycaj-2026.webp",
+      "description": "Co to jest ten cień i jak mam się z nim skontaktować, skoro z definicji go nie widzę? Skąd się bierze cień? Czym się przejawia? Czemu neguję i wypieram niektóre aspekty własnej osobowości? Co ma do tego mój ojciec i matka, to skąd pochodzę i czego po drodze doświadczyłem, jakie wzorce przyswoiłem, jakie strategie wykształciłem - w kontekście społeczno kulturowym - i jak to wpływa na moje życie? Czy jest coś takiego jak cień męski, który się czymś szczególnym wyróżnia? A może, po co w ogóle zaglądać tam, gdzie jest nieprzyjemnie i co mi to da? Podczas tego spotkania wyruszysz w odwiedziny do mrocznej, nie odwiedzanej, oblepionej pajęczynami piwnicy, której wejście zabiłeś deskami, a z której czasem docierają jakieś dziwne dźwięki, lecz zwykle nie masz ochoty tam zejść, by dowiedzieć się, co tam się dzieje. Czy masz odwagę spotkać się z aspektami świata, a być może aspektami siebie samego, z którymi Ci nie po drodze, które uważasz za trudne i niechciane, kłopotliwe, a nawet zagrażające. Co jeśli po wyjściu z piwnicy mógłbyś wiedzieć więcej i mogłoby to w znacząco wpłynąć na jakość twojego życia, twoich relacji i zdolność integrowania wewnętrznych (zewnętrznych) konfliktów, zamiast być przez nie rozporządzanym. Jeśli nie teraz to kiedy? Spotkanie będzie miało charakter laboratoryjny, z częścią prelekcyjną, elementami warsztatowymi i zaproszeniem do dania wyrazu własnym doświadczeniom i wglądom",
+      "bio": "Andrzej Hrycaj, aktualnie kształci się w Szkole Jungowskiej przy Stowarzyszeniu Analityków Jungowskich. W relacji z ukochaną kobietą od ponad ćwierć wieku, ojciec dwójki dorosłych dzieci, podróżnik, człowiek, który sprzedał swój biznes żeby zamieszkać na górskiej polanie. Entuzjasta świadomych praktyk z ciałem, emocjami i nastawieniem mentalnym. Pracy z zimnem i oddechem uczył się od Wima Hofa oraz Tulku Lobsang Rinpoche, tybetańskiego mistrza tummo. Celebrator życia, zarówno, od zaangażowania społecznego w ochronę zagrożonego życia żab począwszy, na nauce tańca lindy-hop skończywszy. Propagator zasad głębokiej ekologii i zrozumienia, że wszystko jest połączone. Osobiste credo - „Bądź zmianą, którą pragniesz ujrzeć w świecie.\" Życie traktuje jako nieustającą podróż w której, każda chwila i każdy krok jest okazją, by postąpić choć odrobinę bardziej świadomie i tym samym lepiej. W pracy męskiej korzysta z przekazów pierwotnych kultur, symboliki mitów, w tym podróży bohatera, rytuałów, modelu koła medycyny i archetypów. Jego misją jest asystowanie i pomaganie innym w byciu szczęśliwym, zdrowym i pełnym mocy, autentycznym sobą. Więcej o Andrzeju i jego pracy znajdziecie tu: FB: fb.me//wewnetrznyogien YT: https://www.youtube.com/watch?v=UM8HD5J06sE"
+    },
+    "klimczak-relacja": {
+      "anchor": "klimczak-relacja",
+      "speaker": "Kacper Klimaczak - Pedagog Szczęścia",
+      "title": "Jak przestać się mijać w relacji i w końcu się dogadać?",
+      "image": "https://consciousman.pl/wp-content/uploads/2026/04/kacper-klimaczak.webp",
+      "description": "Wielu facetów naprawdę się stara (pracuje, pomaga, ogarnia dom) a mimo to słyszy, że „jej czegoś brakuje\". To doświadczenie frustracji i bezradności pojawia się nie dlatego, że mężczyźni kochają za mało, ale dlatego, że często mówią miłość w sposób, który nie trafia w realne potrzeby ich partnerek. Znam to, bo kiedyś uważałem, że właściwie wystarczy robić, to co inni, aż w końcu miałem dość tych napięć. Podczas panelu pokażę prostą, życiową metodę opartą na uważnym słuchaniu, językach miłości i rozumieniu niewidzialnej pracy emocjonalnej - szczególnie w okresie wczesnego rodzicielstwa. Zwykłym męskim okiem. Na przykładach z życia pokażę, jak rozpoznawać potrzeby „między zdaniami\" i jak reagować w sposób, który buduje poczucie bezpieczeństwa zamiast kolejnych kłótni. Panel dotyczy męskiej obecności w relacji: rozmów, które nie kończą się kłótnią, codziennych gestów, które realnie odciążają kobietę, oraz sposobów bycia partnerem, przy którym kobieta czuje się spokojniejsza, widziana i bardziej zaopiekowana. Panel jest dla Ciebie jeśli chcesz mniej napięć i nieporozumień w rozmowach, większe poczucie spokoju i współpracy w relacji, lepsze rozumienie potrzeb partnerki (bez zgadywania), poczucie, że „wiem, co robić\", zamiast ciągłego starania się w ciemno. I chcesz być dobrym kompanem do rozmów dla kobiet",
+      "bio": "Jestem pedagogiem, który pasjonuje się szczęściem. Nauka pokazuję, że najważniejszym czynnikiem zadowlonie z życia, są relacje. Na co dzień zgłębiam relacje ze sobą, z Bogiem, moją żoną i dzieckiem. Dlaczego stawiam na relacje? Bo wierzę, że jak potrafimy rozumieć lepiej siebie i innych, to przestajemy działać po omacku, i trafniej potrafimy uszczęśliwiać siebie i innych. Działam w sieci propagując treści z mojego codziennego życia, więc jak chcesz poznać lepiej moją perspektywę, to zapraszam do poczytania. Więcej o Kacprze i jego pracy znajdziecie tu: FB: Pedagog Szczęścia INSTA: https://www.instagram.com/pedagog_szczescia/"
+    },
+    "klimczak-zlosc": {
+      "anchor": "klimczak-zlosc",
+      "speaker": "Kacper Klimaczak - Pedagog Szczęścia",
+      "title": "Męskie doświadczanie złości",
+      "image": "https://consciousman.pl/wp-content/uploads/2026/04/kacper-klimaczak.webp",
+      "description": "Złość nie jest naszym problemem, tylko jest to, że większość z nas nie została nauczona, co z nią zrobić. Na tym warsztacie pokażę, że złość nie musi niszczyć relacji ani prowadzić do wybuchów, wycofania czy poczucia winy. Jest energią, która, jeśli zostanie zrozumiana i dobrze poprowadzona, staje się źródłem siły, granic i sprawczości. Warsztat dotyczy męskiego doświadczania złości: skąd się bierze, co tak naprawdę komunikuje i dlaczego tak często wychodzi bokiem - w milczeniu, dystansie, ironii albo agresji. Będziemy pracować na prostych, życiowych przykładach, ucząc się rozpoznawać momenty, w których złość próbuje coś chronić, a nie zniszczyć. Pokażę konkretne sposoby: ● jak zauważać złość, zanim przejmie kontrolę, ● jak używać jej do stawiania granic bez ranienia innych, ● jak rozumieć po co się złoszczę i co ją naprawdę powoduje, ● jak być mężczyzną stanowczym i spokojnym jednocześnie, który nie daje sobie w kasze dmuchać To warsztat o byciu poważnym mężczyzną, który nie boi się swojej złości, bo potrafi ją unieść i dobrze wykorzystać. Warsztat dotyczy męskiego doświadczania złości: skąd się bierze, co tak naprawdę komunikuje i dlaczego tak często wychodzi bokiem - w milczeniu, dystansie, ironii albo agresji. Będziemy pracować na prostych, życiowych przykładach, ucząc się rozpoznawać momenty, w których złość próbuje coś chronić, a nie zniszczyć",
+      "bio": "Jestem pedagogiem, który pasjonuje się szczęściem. Nauka pokazuję, że najważniejszym czynnikiem zadowlonie z życia, są relacje. Na co dzień zgłębiam relacje ze sobą, z Bogiem, moją żoną i dzieckiem. Dlaczego stawiam na relacje? Bo wierzę, że jak potrafimy rozumieć lepiej siebie i innych, to przestajemy działać po omacku, i trafniej potrafimy uszczęśliwiać siebie i innych. Działam w sieci propagując treści z mojego codziennego życia, więc jak chcesz poznać lepiej moją perspektywę, to zapraszam do poczytania. Więcej o Kacprze i jego pracy znajdziecie tu: FB: Pedagog Szczęścia INSTA: https://www.instagram.com/pedagog_szczescia/"
+    },
+    "pyziak-starsi-mlodsi": {
+      "anchor": "pyziak-starsi-mlodsi",
+      "speaker": "Michał Pyziak",
+      "title": "Spotkanie Starsi i Młodsi",
+      "image": "https://consciousman.pl/wp-content/uploads/2026/04/michal-pyziak-2026.webp",
+      "description": "Co oni o nas myślą? Co jest dla nich ważne w życiu? Czego pragną, czego się boją? Te i wiele innych pytań zwykle pozostaje w naszych głowach, bo nie mamy okazji ich zadać. Albo nikt nie chce nam szczerze odpowiedzieć. Młodsi starszym, a starsi młodszym. Żyjemy więc, utrzymując własne wyobrażenia i opinie na temat „tych drugich\", często kierujemy się stereotypami i wciąż się od siebie oddalamy. Festiwal Conscious Man stanowi okazję, by to zmienić, spotkać się i usłyszeć. Wierzymy, że obie strony są sobie potrzebne, a kształtowanie odpowiedzialnej męskości wymaga wzajemnych relacji. Zapraszamy do spotkania międzypokoleniowego, rozmowy, która w dzisiejszych czasach rzadko się wydarza. Ideą tego spotkania jest stworzenie przestrzeni do lepszego zrozumienia siebie wzajemnie i zaczerpnięcia inspiracji. W atmosferze uważności i szacunku. Zapraszamy mężczyzn czujących się już bardziej po stronie umownie określonej „starszyzny\", przyjmijmy orientacyjnie wiek 50+, oraz tych najmłodszych, kilkunasto- i dwudziestokilkulatków. Spotkanie ma formułę rozmowy panelowej, gdzie każda z grup sformułuje pytania do drugiej i będzie mogła usłyszeć odpowiedzi. Zadbamy o taką moderację procesu, żeby pytania i odpowiedzi mogły płynąć swobodnie i zarazem sprawnie. Nie chodzi tu o znalezienie „jedynie słusznych\" stwierdzeń, ale o autentyczną wymianę",
+      "bio": ""
+    },
+    "pyziak-kregi-starszyzny": {
+      "anchor": "pyziak-kregi-starszyzny",
+      "speaker": "Michał Pyziak",
+      "title": "Kręgi Starszyzny",
+      "image": "https://consciousman.pl/wp-content/uploads/2026/04/michal-pyziak-2026.webp",
+      "description": "Każdy etap życia ma swoje potrzeby, trudności i wyzwania. Czasem dobrze jest spotkać się w gronie osób w podobnym wieku i porozmawiać o tym, co właśnie nas dotyczy. Usłyszeć, z czym mierzą się inni i podzielić własnym doświadczeniem. Starsi mężczyźni często nie mają okazji do otwartej rozmowy o tym, co przynosi życie wraz z wiekiem. Bywa, że czują się samotni w tym, czego doświadczają. Pragniemy stworzyć bezpieczną przestrzeń do autentycznej wymiany. Zapraszamy mężczyzn w wieku 50+ (granica umowna) do spotkań w kręgach, gdzie będziemy rozmawiali o kilku tematach. Kręgi ułożone tematycznie będą koncentrować się wokół takich obszarów jak: zdrowie, relacje z partnerką, praca lub emerytura, odchodzenie bliskich i konfrontacja z własną śmiertelnością. Każdy krąg będzie miał moderatora, który zadba o przebieg procesu. Przyjdź, posłuchaj, co przeżywają inni i podziel się tym, co sam przeżywasz",
+      "bio": ""
+    },
+    "kups-z-drogi": {
+      "anchor": "kups-z-drogi",
+      "speaker": "Maciej Kupś / Rob in Wood",
+      "title": "Z drogi ku zatraceniu do odnalezienia radości życia",
+      "image": "https://consciousman.pl/wp-content/uploads/2026/02/Maciej-Kups-2026.webp",
+      "description": "Podzielę się własną historią. Opowiem o psychicznym koszcie zawodowej kariery, o drodze lęku, której koniec miał być równocześnie kresem mojego życia i tym jak pasje pomogły mi z niej zejść, odzyskać radość życia i zbudować na nowo relację ze sobą. Będzie o traumie, lęku, udawaniu i syndromie oszusta ale też o sile, radości i mądrości życia. Bez retuszu",
+      "bio": "Z wykształcenia jestem leśnikiem. Przez ponad 20 lat zawodowo tworzyłem jednak sieć sprzedaży dla dużej korporacji kosmetycznej i zajmowałem się szkoleniami. Kilkanaście lat temu zmieniłem kierunek i tak narodził się Rob in Wood. W ramach tego życiowego projektu łączę dotychczasowe kompetencje z odkrytymi na nowo pasjami. Tworzę więc w drewnie, prowadzę agroturystykę a w niej warsztaty stolarskie, warsztaty relacji i drewnoterapię. Nagrywam też filmy poradnikowe na kanał YT. Muzykuję, pisuję, chodzę po górach i szukam radości w prostych rzeczach. Więcej o Macieju i jego pracy znajdziecie tu: FB: Rob in Wood YT: https://www.youtube.com/@Robinwood22 INSTA: https://www.instagram.com/rob_in_wood.pl/"
+    },
+    "kups-drewnoterapia": {
+      "anchor": "kups-drewnoterapia",
+      "speaker": "Maciej Kupś / Rob in Wood",
+      "title": "Drewnoterapia: Uwalnianie umiejętności",
+      "image": "https://consciousman.pl/wp-content/uploads/2026/02/Maciej-Kups-2026.webp",
+      "description": "Zwykle nie wie się, że się potrafi dopóki się nie spróbuje. Nawet jeśli nie każdy umie pięknie malować lub śpiewać to może odkryć inny, własny sposób aby wyrażać kreatywność i wrażliwość. Podczas warsztatów odkryjecie i zaprzyjaźnicie się ze swoim wewnętrznym potencjałem twórczym używając prostych technik stolarskich i DIY, z użyciem fantastycznego materiału jaki jest drewno odpadowe. Stworzycie dla siebie swoją osobistą mozaikę. Będzie twórczo i pożytecznie",
+      "bio": "Z wykształcenia jestem leśnikiem. Przez ponad 20 lat zawodowo tworzyłem jednak sieć sprzedaży dla dużej korporacji kosmetycznej i zajmowałem się szkoleniami. Kilkanaście lat temu zmieniłem kierunek i tak narodził się Rob in Wood. W ramach tego życiowego projektu łączę dotychczasowe kompetencje z odkrytymi na nowo pasjami. Tworzę więc w drewnie, prowadzę agroturystykę a w niej warsztaty stolarskie, warsztaty relacji i drewnoterapię. Nagrywam też filmy poradnikowe na kanał YT. Muzykuję, pisuję, chodzę po górach i szukam radości w prostych rzeczach. Więcej o Macieju i jego pracy znajdziecie tu: FB: Rob in Wood YT: https://www.youtube.com/@Robinwood22 INSTA: https://www.instagram.com/rob_in_wood.pl/"
     }
   },
   "offline": {
-    "cacheName": "consciousman-2026-shell-v23",
+    "cacheName": "consciousman-2026-shell-v24",
     "files": [
       "./",
       "./index.html",
-      "./styles.min.css?v=23",
-      "./app.min.js?v=23",
-      "./data.min.js?v=23",
+      "./styles.min.css?v=24",
+      "./app.min.js?v=24",
+      "./data.min.js?v=24",
       "./manifest.webmanifest",
       "./icon.svg",
       "./assets/consciousman-logo.png",
