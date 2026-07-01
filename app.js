@@ -87,13 +87,16 @@
   const FULL_WIDTH_ZONE_PATTERN = /^(wszyscy|scena główna|scena glowna)$/i;
   const YOUNG_BLOOD_ZONE = "młoda krew";
   const HOME_TAB_ID = "home";
-  const OFFLINE_CACHE_NAME = "consciousman-2026-shell-v24";
+  const APP_VERSION = 25;
+  const VERSION_URL = "./version.json";
+  const OFFLINE_CACHE_NAME = "consciousman-2026-shell-v25";
   const OFFLINE_ASSETS = [
     "./",
     "./index.html",
-    "./styles.min.css?v=24",
-    "./app.min.js?v=24",
-    "./data.min.js?v=24",
+    "./styles.min.css?v=25",
+    "./app.min.js?v=25",
+    "./data.min.js?v=25",
+    "./version.json",
     "./manifest.webmanifest",
     "./icon.svg",
     "./assets/consciousman-logo.png",
@@ -104,9 +107,11 @@
     savedAt: "cm2026.offline.savedAt",
     favorites: "cm2026.favoriteSessions.v1",
     persisted: "cm2026.offline.persisted",
+    version: "cm2026.version.current",
     hideYoungBlood: "cm2026.hideYoungBlood.v2",
     hiddenSessions: "cm2026.hiddenSessions.v1"
   };
+  const UPDATE_RELOAD_KEY = "cm2026.version.reloaded";
   const SWIPE_HIDE_THRESHOLD = 72;
   const SWIPE_MAX_OFFSET = 118;
   const SWIPE_LOCK_MS = 320;
@@ -121,6 +126,7 @@
     favoriteIds: new Set(),
     hiddenSessionIds: new Set(),
     offlineSaveInFlight: null,
+    updateCheckInFlight: null,
     hideYoungBlood: false
   };
 
@@ -155,8 +161,10 @@
     renderDays(appState.days);
     bindDialog();
     bindMapDialog();
+    bindVersionRefresh();
     rememberScheduleData(sourceData);
     registerServiceWorker();
+    checkForContentUpdate();
   }
 
   function normalizeSchedule(input) {
@@ -1106,6 +1114,7 @@
     try {
       await ensureServiceWorker();
       await saveOfflineBundle();
+      await checkForContentUpdate();
     } catch {
     }
   }
@@ -1116,6 +1125,104 @@
 
   function canUseServiceWorker() {
     return "serviceWorker" in navigator && ["http:", "https:"].includes(window.location.protocol);
+  }
+
+  function bindVersionRefresh() {
+    window.addEventListener("online", () => {
+      checkForContentUpdate();
+    });
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") checkForContentUpdate();
+    });
+  }
+
+  async function checkForContentUpdate() {
+    if (!navigator.onLine) return false;
+    if (appState.updateCheckInFlight) return appState.updateCheckInFlight;
+
+    appState.updateCheckInFlight = (async () => {
+      const remoteVersion = await fetchRemoteVersion();
+      if (!isNewerVersion(remoteVersion.version, APP_VERSION)) {
+        rememberCurrentVersion(APP_VERSION);
+        return false;
+      }
+
+      await prepareVersionForOffline(remoteVersion);
+      reloadForVersion(remoteVersion.version);
+      return true;
+    })().catch(() => false);
+
+    try {
+      return await appState.updateCheckInFlight;
+    } finally {
+      appState.updateCheckInFlight = null;
+    }
+  }
+
+  async function fetchRemoteVersion() {
+    const url = new URL(VERSION_URL, window.location.href);
+    url.searchParams.set("_", String(Date.now()));
+    const response = await fetch(url.toString(), {
+      cache: "no-store",
+      headers: { Accept: "application/json" }
+    });
+    if (!response.ok) throw new Error("Version check failed");
+    const payload = await response.json();
+    const version = Number.parseInt(payload.version, 10);
+    if (!Number.isFinite(version)) throw new Error("Invalid version");
+    return {
+      version,
+      cacheName: text(payload.cacheName),
+      files: Array.isArray(payload.files) ? payload.files.map(text).filter(Boolean) : []
+    };
+  }
+
+  function isNewerVersion(remoteVersion, currentVersion) {
+    return Number.isFinite(remoteVersion) && remoteVersion > currentVersion;
+  }
+
+  async function prepareVersionForOffline(versionInfo) {
+    const tasks = [
+      cacheVersionAssets(versionInfo),
+      updateServiceWorker()
+    ];
+    await Promise.allSettled(tasks);
+  }
+
+  async function cacheVersionAssets(versionInfo) {
+    if (!("caches" in window) || !versionInfo.cacheName || !versionInfo.files.length) return false;
+    const cache = await caches.open(versionInfo.cacheName);
+    await cache.addAll(versionInfo.files);
+    return true;
+  }
+
+  async function updateServiceWorker() {
+    if (!canUseServiceWorker()) return false;
+    const registration = await ensureServiceWorker();
+    await registration.update?.();
+    const worker = registration.waiting || registration.installing;
+    worker?.postMessage?.({ type: "SKIP_WAITING" });
+    return true;
+  }
+
+  function reloadForVersion(version) {
+    const normalizedVersion = String(version);
+    try {
+      if (sessionStorage.getItem(UPDATE_RELOAD_KEY) === normalizedVersion) return;
+      sessionStorage.setItem(UPDATE_RELOAD_KEY, normalizedVersion);
+      localStorage.setItem(OFFLINE_STORAGE_KEYS.version, normalizedVersion);
+    } catch {
+    }
+    const url = new URL(window.location.href);
+    url.searchParams.set("v", `auto-${normalizedVersion}`);
+    window.location.replace(url.toString());
+  }
+
+  function rememberCurrentVersion(version) {
+    try {
+      localStorage.setItem(OFFLINE_STORAGE_KEYS.version, String(version));
+    } catch {
+    }
   }
 
   async function saveOfflineBundle() {

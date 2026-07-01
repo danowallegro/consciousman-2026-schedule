@@ -27,6 +27,7 @@ DETAILS_PATH = next(
     if path.exists()
 )
 OUT_PATH = SCRIPT_DIR / "data.js" if (SCRIPT_DIR / "index.html").exists() else ROOT / "work" / "consciousman-schedule" / "data.js"
+APP_VERSION = 25
 
 
 def slugify(value: str) -> str:
@@ -419,13 +420,15 @@ def main() -> None:
         "days": days,
         "details": details,
         "offline": {
-            "cacheName": "consciousman-2026-shell-v24",
+            "version": APP_VERSION,
+            "cacheName": f"consciousman-2026-shell-v{APP_VERSION}",
             "files": [
                 "./",
                 "./index.html",
-                "./styles.min.css?v=24",
-                "./app.min.js?v=24",
-                "./data.min.js?v=24",
+                f"./styles.min.css?v={APP_VERSION}",
+                f"./app.min.js?v={APP_VERSION}",
+                f"./data.min.js?v={APP_VERSION}",
+                "./version.json",
                 "./manifest.webmanifest",
                 "./icon.svg",
                 "./assets/consciousman-logo.png",

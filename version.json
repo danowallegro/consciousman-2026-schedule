@@ -1,0 +1,16 @@
+{
+  "version": 25,
+  "cacheName": "consciousman-2026-shell-v25",
+  "files": [
+    "./",
+    "./index.html",
+    "./styles.min.css?v=25",
+    "./app.min.js?v=25",
+    "./data.min.js?v=25",
+    "./version.json",
+    "./manifest.webmanifest",
+    "./icon.svg",
+    "./assets/consciousman-logo.png",
+    "./assets/festival-map-2026.webp"
+  ]
+}
